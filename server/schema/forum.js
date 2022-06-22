@@ -2,12 +2,11 @@ import mongoose from "mongoose";
 
 const ForumSchema = new mongoose.Schema(
 	{
-		theme: String,
-		forumlevel: Number,
-        threadcount: Number,
+		header: String,
         postcount: Number,
-        posts: [{ postname: String, date: { type: Date, default: () => Date.now() }, postbody: String, replycount: Number, 
-        comments: [{ commentbody: String, replynumber: Number }]
+        commentcount: Number,
+        posts: [{ postname: String, date: { type: Date, default: () => Date.now() }, postbody: String, replycount: Number, user: String, 
+        comments: [{ commentbody: String, replynumber: Number, user: String }]
         }]
 	},
 	{ collection: 'forum' }
