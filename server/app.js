@@ -1,5 +1,3 @@
-
-
 //Express
 import express from "express";
 const app = express();
@@ -13,8 +11,7 @@ app.use(express.static(path.resolve("../client/public")));
 //Mongoose
 import mongoose from "mongoose";
 
-//Session
-import session from "express-session";
+//JWT
 
 //Rate-limit
 import rateLimit from "express-rate-limit";
@@ -34,6 +31,18 @@ app.use(usersRouter);
 //Cors
 import cors from "cors";
 app.use(cors());
+
+//dotenv
+import dotenv from "dotenv"
+dotenv.config();
+
+//MongoDB
+mongoose.connect("mongodb+srv://"+process.env.MONGO_USER+":"+process.env.MONGO_PASSWORD+"@hearingimpairedforum.arjmn.mongodb.net/?retryWrites=true&w=majority");
+const db = mongoose.connection;
+db.on('Error', console.log.bind(console, "DB connection error"));
+db.once('open', function(callback) {
+    console.log("DB connection established");
+});
 
 //Port
 const PORT = process.env.PORT || 3000;
