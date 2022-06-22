@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 //session
 import session from "express-session";
 app.use(session({
-    secret: 'forumhearing',
+    secret: '+process.env.SESSION_SECRET+',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
