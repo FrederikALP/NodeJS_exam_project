@@ -1,11 +1,29 @@
 <script>
-	export let name;
+	import { Link, Router, Route } from "svelte-navigator";
+	import { baseURL } from "./stores/generalStore.js";
+	import { SvelteToast } from '@zerodevx/svelte-toast'
+	const options = {  }; //Toast options
+
+	import Frontpage from "./pages/Frontpage/Frontpage.svelte";
+	import Forum from "./pages/Forum/Forum.svelte";
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<Router>
+		<nav>
+			<Link to="/">Home</Link>
+			<Link to="/forum">Forum</Link>
+		</nav>
+
+		<Route path="/" component={Frontpage} />
+		<Route path="/forum" component={Forum} />
+	</Router>
 </main>
+<footer>
+	{new Date().getFullYear()} Copyright bla bla
+	About
+	Contact
+</footer>
 
 <style>
 	main {

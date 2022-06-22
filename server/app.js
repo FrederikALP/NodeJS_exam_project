@@ -1,10 +1,14 @@
-import path from "path";
+
 
 //Express
 import express from "express";
 const app = express();
-app.use(express.static(path.resolve("../client/public")));
+app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+//Path
+import path from "path";
+app.use(express.static(path.resolve("../client/public")));
 
 //Mongoose
 import mongoose from "mongoose";
@@ -19,13 +23,17 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 app.use(helmet());
 
-//Cors
-import cors from "cors";
-app.use(cors());
-
 //Body parser
 import bodyParser from "body-parser";
 app.use(bodyParser.json());
+
+//Routers
+import usersRouter from "./routers/usersRouter.js";
+app.use(usersRouter);
+
+//Cors
+import cors from "cors";
+app.use(cors());
 
 //Port
 const PORT = process.env.PORT || 3000;
