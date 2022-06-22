@@ -61,7 +61,6 @@ router.get('/api/logout', auth, function(req,res){
 		const token = jwt.expiresInMinutes(1);
 		res.sendStatus(200);
 	});
-
 });
 
 export default router;
