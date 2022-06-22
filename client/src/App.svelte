@@ -3,6 +3,11 @@
 	import { baseURL } from "./stores/generalStore.js";
 	import { SvelteToast } from '@zerodevx/svelte-toast'
 	const options = {  }; //Toast options
+	import PrivateRoute from "./components/PrivateRoute.svelte";
+	import RegisterUser from "./pages/Login/RegisterUser.svelte";
+	import Login from "./pages/Login/Login.svelte"
+	import UserStore from "./pages/Login/UserStore.svelte";
+
 
 	import Frontpage from "./pages/Frontpage/Frontpage.svelte";
 	import Forum from "./pages/Forum/Forum.svelte";
@@ -13,10 +18,14 @@
 		<nav>
 			<Link to="/">Home</Link>
 			<Link to="/forum">Forum</Link>
+			<Link to="/login">Login</Link>
+			<Link to="/register">Register User</Link>
 		</nav>
 
 		<Route path="/" component={Frontpage} />
 		<Route path="/forum" component={Forum} />
+		<Route path="/login" component={Login} />
+		<Route path="/register" component={RegisterUser} />
 	</Router>
 </main>
 <footer>
