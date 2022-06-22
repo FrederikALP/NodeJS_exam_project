@@ -6,8 +6,8 @@ const ForumSchema = new mongoose.Schema(
 		forumlevel: Number,
         threadcount: Number,
         postcount: Number,
-        threads: [{ threadname: String, date: { type: Date, default: () => Date.now() }, threadbody: String, replycount: Number, 
-        posts: [{ postbody: String, replynumber: Number }]
+        posts: [{ postname: String, date: { type: Date, default: () => Date.now() }, postbody: String, replycount: Number, 
+        comments: [{ commentbody: String, replynumber: Number }]
         }]
 	},
 	{ collection: 'forum' }
