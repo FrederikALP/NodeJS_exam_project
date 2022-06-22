@@ -23,7 +23,7 @@ router.post('/api/login', async (req, res) => {
 				username: user.username,
 				expiresInMinutes: 1
 			},
-			process.env.JWT_TOKEN
+			'+process.env.JWT_TOKEN+'
 		)
 		return res.json({ status: 'ok', data: token, user: username });
 	}

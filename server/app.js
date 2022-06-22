@@ -25,7 +25,7 @@ import bodyParser from "body-parser";
 app.use(bodyParser.json());
 
 //Routers
-import usersRouter from "./routers/usersRouter.js";
+import usersRouter from "./routers/usersRouter.js"; 
 app.use(usersRouter);
 
 //Cors
