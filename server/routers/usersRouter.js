@@ -5,8 +5,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import auth from "../auth/auth.js";
 
-const JWT_SECRET = "'"+process.env.JWT_TOKEN+"'"
-
 
 router.post('/api/login', async (req, res) => {
 	const { username, password } = req.body;
@@ -25,7 +23,7 @@ router.post('/api/login', async (req, res) => {
 				username: user.username,
 				expiresInMinutes: 1
 			},
-			JWT_SECRET
+			process.env.JWT_TOKEN
 		)
 		return res.json({ status: 'ok', data: token, user: username });
 	}
