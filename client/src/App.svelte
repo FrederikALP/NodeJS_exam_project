@@ -30,7 +30,7 @@
 			<Link to="/register">Register User</Link>
 			{/if}
 			{#if ($user.loggedIn)}
-			<Link on:clock="{handleLogout}" to="/">Logout</Link>
+			<Link on:click="{handleLogout}" to="/">Logout</Link>
 			{/if}
 		</nav>
 
