@@ -12,11 +12,9 @@
 
 	import Frontpage from "./pages/Frontpage/Frontpage.svelte";
 	import Forum from "./pages/Forum/Forum.svelte";
-
+	
 	function handleLogout() {
-		const from = ($location.state && $location.state.from) || "/login";
-        navigate(from, { replace: true });
-
+		fetch('http://localhost:3000/api/logout');
 	}
 </script>
 
@@ -25,17 +23,13 @@
 		<nav>
 			<Link to="/">Home</Link>
 			<Link to="/forum">Forum</Link>
-			{#if (!$user.loggedIn)}
+			{#if (localStorage.getItem('token') == null)}
 			<Link to="/login">Login</Link>
 			<Link to="/register">Register User</Link>
-<<<<<<< HEAD
-			
-=======
 			{/if}
-			{#if ($user.loggedIn)}
+			{#if (localStorage.getItem('token') != null)}
 			<Link on:click="{handleLogout}" to="/">Logout</Link>
 			{/if}
->>>>>>> 20a7e014b35292be625565cccced863cbab94a0e
 		</nav>
 
 		<Route path="/" component={Frontpage} />

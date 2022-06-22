@@ -29,6 +29,7 @@
             console.log('Got the token: ', result.data)
             localStorage.setItem('token', result.data)
             user.set(username);
+            localStorage.setItem('username', result.data)
             toast.push("Logged in succesfully");
             const from = ($location.state && $location.state.from) || "/";
             navigate(from, { replace: true });
