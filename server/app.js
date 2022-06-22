@@ -51,6 +51,11 @@ db.once('open', function(callback) {
 import usersRouter from "./routers/usersRouter.js"; 
 app.use(usersRouter);
 
+//Default fallback
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve("../client/public/index.html"));
+});
+
 //Port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
