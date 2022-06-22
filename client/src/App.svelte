@@ -1,7 +1,8 @@
 <script>
 	import { Link, Router, Route } from "svelte-navigator";
 	import { baseURL } from "./stores/generalStore.js";
-	import { SvelteToast } from '@zerodevx/svelte-toast'
+	import { user } from "./stores/generalStore";
+	import { SvelteToast } from '@zerodevx/svelte-toast';
 	const options = {  }; //Toast options
 	import PrivateRoute from "./components/PrivateRoute.svelte";
 	import RegisterUser from "./pages/Login/RegisterUser.svelte";
@@ -11,6 +12,12 @@
 
 	import Frontpage from "./pages/Frontpage/Frontpage.svelte";
 	import Forum from "./pages/Forum/Forum.svelte";
+
+	function handleLogout() {
+		const from = ($location.state && $location.state.from) || "/login";
+        navigate(from, { replace: true });
+
+	}
 </script>
 
 <main>
@@ -18,8 +25,13 @@
 		<nav>
 			<Link to="/">Home</Link>
 			<Link to="/forum">Forum</Link>
+			{#if (!$user.loggedIn)}
 			<Link to="/login">Login</Link>
 			<Link to="/register">Register User</Link>
+			{/if}
+			{#if ($user.loggedIn)}
+			<Link on:clock="{handleLogout}" to="/">Logout</Link>
+			{/if}
 		</nav>
 
 		<Route path="/" component={Frontpage} />
