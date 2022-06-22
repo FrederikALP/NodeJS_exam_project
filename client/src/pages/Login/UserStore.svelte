@@ -5,7 +5,7 @@
     const location = useLocation();
 	
 	function handleLogout() {
-		const from = ($location.state && $location.state.from) || "/login";
+		const from = ($location.state && $location.state.from) || "/";
         navigate(from, { replace: true });
 	}
 

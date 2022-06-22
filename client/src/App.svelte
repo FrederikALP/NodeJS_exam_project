@@ -20,6 +20,7 @@
 			<Link to="/forum">Forum</Link>
 			<Link to="/login">Login</Link>
 			<Link to="/register">Register User</Link>
+			
 		</nav>
 
 		<Route path="/" component={Frontpage} />
