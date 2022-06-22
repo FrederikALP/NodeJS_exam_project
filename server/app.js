@@ -11,8 +11,6 @@ app.use(express.static(path.resolve("../client/public")));
 //Mongoose
 import mongoose from "mongoose";
 
-//JWT
-
 //Rate-limit
 import rateLimit from "express-rate-limit";
 
@@ -24,9 +22,14 @@ app.use(helmet());
 import bodyParser from "body-parser";
 app.use(bodyParser.json());
 
-//Routers
-import usersRouter from "./routers/usersRouter.js"; 
-app.use(usersRouter);
+//session
+import session from "express-session";
+app.use(session({
+    secret: 'forumhearing',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
 
 //Cors
 import cors from "cors";
@@ -43,6 +46,10 @@ db.on('Error', console.log.bind(console, "DB connection error"));
 db.once('open', function(callback) {
     console.log("DB connection established");
 });
+
+//Routers
+import usersRouter from "./routers/usersRouter.js"; 
+app.use(usersRouter);
 
 //Port
 const PORT = process.env.PORT || 3000;

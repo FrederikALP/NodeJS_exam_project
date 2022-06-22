@@ -13,7 +13,7 @@
         const username = document.getElementById('username').value
         const password = document.getElementById('password').value
 
-        const result = await fetch('http://localhost:3000/api/login', {
+        const response = await fetch('http://localhost:3000/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,19 +24,15 @@
             })
         }).then((res) => res.json())
 
-        if (result.status === 'ok') {
-            // everythign went fine
-            console.log('Got the token: ', result.data)
-            localStorage.setItem('token', result.data)
-            user.set(username);
-            toast.push("Logged in succesfully");
+        if (response.loggedIn) {
+
+            user.set(response);
             const from = ($location.state && $location.state.from) || "/";
             navigate(from, { replace: true });
-            
         } else {
-            toast.push(result.error);
+            toast.push(response.error);
         }
-    }  
+}
     
 </script>
 

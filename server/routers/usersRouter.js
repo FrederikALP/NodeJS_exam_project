@@ -2,9 +2,6 @@ import { Router } from "express";
 const router = Router();
 import User from "../schema/user.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import auth from "../auth/auth.js";
-
 
 
 router.post('/api/login', async (req, res) => {
@@ -12,25 +9,19 @@ router.post('/api/login', async (req, res) => {
 	const user = await User.findOne({ username }).lean();
 
 	if (!user) {
-		return res.json({ status: 'error', error: 'Invalid username/password' });
+		return res.send({ status: 'error', error: 'Invalid username/password' });
 	}
 
 	if (await bcrypt.compare(password, user.password)) {
 		// Succesful
-
-		const token = jwt.sign(
-			{
-				id: user._id,
-				username: user.username,
-				expiresInMinutes: 1
-			},
-			'+process.env.JWT_TOKEN+'
-		)
-		return res.json({ status: 'ok', data: token, user: username });
+        req.session.loggedIn = true;
+        req.session.userID = user._id;
+		return res.send({ status: 'ok', currentUser: user, loggedIn: true });
 	}
 
-	res.json({ status: 'error', error: 'Invalid username/password' })
+	res.send({ status: 'error', error: 'Invalid username/password', loggedIn: false })
 })
+
 
 router.post('/api/register', async (req, res) => {
     console.log(res.body); 
@@ -55,12 +46,13 @@ router.post('/api/register', async (req, res) => {
 	res.json({ status: 'ok' });
 });
 
-router.get('/api/logout', auth, function(req,res){
-	req.user.deleteToken(req.token, (err,user) => {
-		if(err) return res.status(400).send(err);
-		const token = jwt.expiresInMinutes(1);
-		res.sendStatus(200);
-	});
+
+router.get("/api/logout", (req, res) => {
+    if (req.session.loggedIn) {
+        req.session.loggedIn = false;
+        req.session.userID = undefined;
+        return res.send({ loggedIn: false});
+    }
 });
 
 export default router;
