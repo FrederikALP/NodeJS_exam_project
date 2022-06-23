@@ -35,19 +35,7 @@ async function createNewPost() {
         headers: {
             'Content-Type': 'application/json'
         },
-<<<<<<< HEAD
-        body: JSON.stringify({
-            "postheader": postheader,
-            "postbody": postbody,
-            "replycount": 0,
-            "subid": 1,
-            "user": {
-                "username": "Kristian",
-                "userid": "62b318932f4dcd817799a245"
-            }
-=======
         body: JSON.stringify({post: newPost})
->>>>>>> ecc42b6b6d75c21450e3de8da1bd17c796e1b989
         })
         console.log(response.status)
     

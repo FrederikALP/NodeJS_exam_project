@@ -1,4 +1,4 @@
-import { request, response, Router } from "express";
+import { Router } from "express";
 const router = Router();
 import Comments from "../schema/comments.js";
 import Posts from "../schema/posts.js";
@@ -27,21 +27,16 @@ router.get("/api/commentsByPost/:id", async (req, res) => {
 });
 
 //Create comment on post id
-router.post("/api/comment", async (req, res) => {
-    const { commentbody, replynumber, postid, user } = req.body;
-
+router.post("/api/comment", async (request, response) => {
+    const comment = new Comments(request.body.comment);
     try {
-        const res = await Comments.create({
-            commentbody, 
-            replynumber, 
-            postid, 
-            user
-        });
-        console.log('Comment created succesfully: ', res);
+        await comment.save();
+        response.send(comment);
     } catch (error) {
-        res.status(500).send(error);
+        response.status(500).send(error);
     }
 });
+
 
 //Update comment by id
 router.patch("/api/comment/:id", async (req, res) => {

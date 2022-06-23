@@ -4,6 +4,17 @@ import User from "../schema/user.js";
 import bcrypt from "bcrypt";
 
 
+//Get all users
+router.get("/api/users", async (req, res) => {
+    const users = await User.find({});
+
+    try {
+        res.send(users);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 router.post('/api/login', async (req, res) => {
 	const { username, password } = req.body;
 	const user = await User.findOne({ username }).lean();
