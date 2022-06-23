@@ -8,7 +8,7 @@ router.get("/posts", async (request, response) => {
     const posts = await Posts.find({});
 
     try {
-        response.send(Posts);
+        response.send(posts);
     } catch (error) {
         response.status(500).send(error);
     }
@@ -19,7 +19,7 @@ router.get("/postsBySubforum/:id", async (request, response) => {
     const postsBySubforum = await Posts.find(SubForum.find({id}));
 
     try {
-        response.send(Posts);
+        response.send(postsBySubforum);
     } catch (error) {
         response.status(500).send(error);
     } 
