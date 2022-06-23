@@ -27,6 +27,7 @@
 </script>
 
 <main>
+	<SvelteToast options = {options}/>
 	<h1>Hørehæmmedes tilflugtssted</h1>
 	<Router>
 		<nav>

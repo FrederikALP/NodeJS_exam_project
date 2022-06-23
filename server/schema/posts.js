@@ -7,10 +7,7 @@ const Posts = new mongoose.Schema(
         postbody: String, 
         replycount: Number,
         subid: Number,
-        user: {
-            username: String,
-            userid: mongoose.Schema.Types.ObjectId
-        }
+        userid: mongoose.Schema.Types.ObjectId
     },
     { collection: 'posts' }
 );
