@@ -4,66 +4,66 @@ import Posts from "../schema/posts.js";
 import SubForum from "../schema/subForum.js";
  
 //Get all posts
-router.get("/posts", async (request, response) => {
+router.get("/posts", async (req, res) => {
     const posts = await Posts.find({});
 
     try {
-        response.send(posts);
+        res.send(posts);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
 //Get post by subForum id
-router.get("/postsBySubforum/:id", async (request, response) => {
-    const subforumid = Number(request.params.id);
+router.get("/postsBySubforum/:id", async (req, res) => {
+    const subforumid = Number(req.params.id);
     const postsBySubforum = await Posts.find(SubForum.find({subforumid}));
 
     try {
-        response.send(postsBySubforum);
+        res.send(postsBySubforum);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     } 
 });
 
 //Create post
-router.post("/post", async (request, response) => {
-    const { postHeader, date, postbody, replycount, subid, user } = req.body;
+router.post("/post", async (req, res) => {
+    const { postheader, date, postbody, replycount, subid, user } = req.body;
 
     try {
-        const response = await Posts.create({
-            postsHeader,
+        const res = await Posts.create({
+            postheader,
             date,
             postbody,
             replycount,
             subid,
             user
         });
-        console.log('Post created succesfully: ', response);
+        console.log('Post created succesfully: ', res);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
 //Update post by id
-router.patch("/post/:id", async (request, response) => {
+router.patch("/post/:id", async (req, res) => {
     try {
-        await Posts.findByIdAndUpdate(request.params.id, requestbody);
+        await Posts.findByIdAndUpdate(req.params.id, req.body);
         await Posts.bulkSave();
-        response.send('Post was updated: ', Posts);
+        res.send('Post was updated: ', Posts);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
 //Delete post by id
-router.delete("/post/:id", async (request, response) => {
+router.delete("/post/:id", async (req, res) => {
     try {
-        const post = await Posts.findByIdAndDelete(request.params.id);
-        if (!post) response.status(404).send('No post found');
-        response.status(200).send();
+        const post = await Posts.findByIdAndDelete(req.params.id);
+        if (!post) res.status(404).send('No post found');
+        res.status(200).send();
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 

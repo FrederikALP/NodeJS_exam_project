@@ -72,6 +72,18 @@ const seedPosts = [
     }
 ]
 
+const seedComments = [
+    {
+        commentbody: 'Sounds great!',
+        replynumber: 0,
+        postid: '62b45676a6f256f14de33653',
+        user: {
+            username: "Kristian",
+            userid: "62b318932f4dcd817799a245"
+        }
+    }
+]
+
 const seedDB = async () => {
     await Forum.deleteMany({});
     await Forum.insertMany(seedForum);
@@ -79,6 +91,8 @@ const seedDB = async () => {
     await SubForum.insertMany(seedSubForum);
     await Posts.deleteMany({});
     await Posts.insertMany(seedPosts);
+    await Comments.deleteMany({});
+    await Comments.insertMany(seedComments);
 };
 
 seedDB().then(() => {

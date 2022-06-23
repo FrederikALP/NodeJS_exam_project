@@ -58,7 +58,9 @@ import usersRouter from "./routers/usersRouter.js";
 import forumsRouter from "./routers/forumsRouter.js"
 import subForumsRouter from "./routers/subForumsRouter.js";
 import postsRouter from "./routers/postRouter.js";
-app.use(usersRouter, forumsRouter, subForumsRouter, postsRouter);
+import commentsRouter from "./routers/commentRouter.js";
+
+app.use(usersRouter, forumsRouter, subForumsRouter, postsRouter, commentsRouter);
 
 //Default fallback
 app.get('*', (req, res) => {
