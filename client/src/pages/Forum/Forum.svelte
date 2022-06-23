@@ -7,16 +7,16 @@
 
     onMount(async () => {
         const response = await fetch('http://localhost:3000/forums');
-        const { data:forumsArray } = await response.json();
+        const forumsArray = await response.json();
         forumsHeader = forumsArray;
         console.log(forumsArray);
         console.log(forumsHeader);
-    })
+    });
 </script>
 
 <div>
     <h1>Forum</h1>
-    {$forumsHeader}
+    {forumsHeader}
     {#if ($user.loggedIn)}
     <h1>Welcome {$user.currentUser.username}</h1>
     {/if}
