@@ -6,10 +6,10 @@ const Posts = new mongoose.Schema(
         date: { type: Date, default: () => Date.now() }, 
         postbody: String, 
         replycount: Number,
-        subid: String,
+        subid: Number,
         user: {
             username: String,
-            userid: String
+            userid: mongoose.Schema.Types.ObjectId
         }
     },
     { collection: 'posts' }

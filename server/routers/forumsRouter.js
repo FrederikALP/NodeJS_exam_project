@@ -3,13 +3,13 @@ const router = Router();
 import Forum from "../schema/forum.js";
 
 //Get all
-router.get("/forums", async (request, response) => {
+router.get("/forums", async (req, res) => {
     const forums = await Forum.find({});
   
     try {
-      response.send(forums);
+      res.send(forums);
     } catch (error) {
-      response.status(500).send(error);
+      res.status(500).send(error);
     }
   });
 

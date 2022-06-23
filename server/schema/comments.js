@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const Comments = new mongoose.Schema(
     { 
         commentbody: String, 

@@ -6,6 +6,7 @@ const SubForum = new mongoose.Schema(
         postcount: Number,
         commentcount: Number,
         mainid: Number,
+        _id: Number
     },
     { collection: 'subforum' }
 );
