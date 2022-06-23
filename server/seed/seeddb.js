@@ -76,7 +76,7 @@ const seedComments = [
     {
         commentbody: 'Sounds great!',
         replynumber: 0,
-        postid: '62b45676a6f256f14de33653',
+        postid: '62b45f5552c6a59897d5d7c2',
         user: {
             username: "Kristian",
             userid: "62b318932f4dcd817799a245"

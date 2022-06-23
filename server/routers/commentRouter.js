@@ -17,7 +17,7 @@ router.get("/comments", async (req, res) => {
 //Get comments by post id
 router.get("/commentsByPost/:id", async (req, res) => {
     const postid = req.params.id;
-    const commentsByPost = await Comments.find(Posts.find({postid}));
+    const commentsByPost = await Comments.find({ postid });
 
     try {
         res.send(commentsByPost);
