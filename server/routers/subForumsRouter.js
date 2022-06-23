@@ -13,11 +13,9 @@ router.get("/subforums", async (req, res) => {
     }
   });
 
-export default router;
-
 //Get by mainforum id
 router.get("/subforums/:id", async (req, res) => {
-    const maindid = Number(req.params.id);
+    const mainid = Number(req.params.id);
     const subForums = await SubForum.findOne( {mainid} );
   
     try {
@@ -26,3 +24,5 @@ router.get("/subforums/:id", async (req, res) => {
       res.status(500).send(error);
     }
   });
+
+export default router;

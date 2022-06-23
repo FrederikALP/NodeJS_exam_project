@@ -1,4 +1,4 @@
-import { request, response, Router } from "express";
+import { Router } from "express";
 const router = Router();
 import Posts from "../schema/posts.js";
 import SubForum from "../schema/subForum.js";
@@ -8,7 +8,7 @@ router.get("/posts", async (request, response) => {
     const posts = await Posts.find({});
 
     try {
-        response.send(Posts);
+        response.send(posts);
     } catch (error) {
         response.status(500).send(error);
     }
@@ -16,10 +16,11 @@ router.get("/posts", async (request, response) => {
 
 //Get post by subForum id
 router.get("/postsBySubforum/:id", async (request, response) => {
-    const postsBySubforum = await Posts.find(SubForum.find({id}));
+    const subforumid = Number(request.params.id);
+    const postsBySubforum = await Posts.find(SubForum.find({subforumid}));
 
     try {
-        response.send(Posts);
+        response.send(postsBySubforum);
     } catch (error) {
         response.status(500).send(error);
     } 
@@ -66,4 +67,4 @@ router.delete("/post/:id", async (request, response) => {
     }
 });
 
-
+export default router;
