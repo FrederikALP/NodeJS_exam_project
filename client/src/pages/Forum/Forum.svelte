@@ -8,11 +8,6 @@
     onMount(async () => {
         const response = await fetch('http://localhost:3000/forums');
         const forumsArray = await response.json();
-<<<<<<< HEAD
-        forumsHeader = forumsArray;
-        console.log(forumsArray);
-        console.log(forumsHeader);
-=======
         forums = forumsArray;
         console.log(forums);
     });
@@ -22,16 +17,11 @@
         const forumsArray = await response.json();
         subforums = forumsArray;
         console.log(subforums);
->>>>>>> e7c089a4ea31fa686bf6856c8ab40165df0201da
     });
 </script>
 
 <div>
     <h1>Forum</h1>
-<<<<<<< HEAD
-    {forumsHeader}
-=======
->>>>>>> e7c089a4ea31fa686bf6856c8ab40165df0201da
     {#if ($user.loggedIn)}
     <h1>Welcome {$user.currentUser.username}</h1>
     {/if}
