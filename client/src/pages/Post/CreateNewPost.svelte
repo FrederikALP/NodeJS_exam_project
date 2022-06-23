@@ -34,7 +34,7 @@ async function createNewPost(event) {
             "user": {
                 "username": "Kristian",
                 "userid": "62b318932f4dcd817799a245"
-        }
+            }
         })
     }).then((res) => res.json())
 
