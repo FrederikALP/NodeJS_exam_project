@@ -1,6 +1,9 @@
 <script>
+    import { Link, Router, Route } from "svelte-navigator";
     import { user } from "../../stores/generalStore.js";
     import { onMount } from 'svelte';
+    import { baseURL } from "../../stores/generalStore.js";
+    import Subforum from "../Subforum/Subforum.svelte";
 
     let forums;
     let subforums;
@@ -20,14 +23,14 @@
     });
 */
     async function fetchForums() {
-        const response = await fetch('http://localhost:3000/forums');
+        const response = await fetch($baseURL + '/forums');
         const forumsArray = await response.json();
         forums = forumsArray;
         console.log(forums);
     };
 
     async function fetchSubForums() {
-        const response = await fetch('http://localhost:3000/subforums');
+        const response = await fetch($baseURL + '/subforums');
         const forumsArray = await response.json();
         subforums = forumsArray;
         console.log(subforums);
@@ -37,7 +40,6 @@
         fetchForums()
         fetchSubForums()
     });
-
 </script>
 
 <div>
@@ -55,9 +57,12 @@
             {#if subforums} 
             {#each subforums as subforum}
                {#if subforum.mainid === forum._id}
-               <li> 
-                    <a href>{subforum.subheader}</a>
-                </li>
+               <Router>
+                <nav>
+                    <Link to="/subforum">{subforum.subheader}</Link>
+                </nav>
+                <Route path="/subforum" component={Subforum} />
+                </Router>
                 {/if}
             {/each}
             {/if}

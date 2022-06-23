@@ -12,6 +12,7 @@
 
 	import Frontpage from "./pages/Frontpage/Frontpage.svelte";
 	import Forum from "./pages/Forum/Forum.svelte";
+	import Subforum from "./pages/Subforum/Subforum.svelte";
 
 	async function handleLogout() {
 		const response = await fetch($baseURL + '/api/logout');
@@ -24,6 +25,7 @@
 </script>
 
 <main>
+	<h1>Hørehæmmedes tilflugtssted</h1>
 	<Router>
 		<nav>
 			<Link to="/">Home</Link>
@@ -39,6 +41,7 @@
 
 		<Route path="/" component={Frontpage} />
 		<Route path="/forum" component={Forum} />
+		<Route path="/subforum" component={Subforum} />
 		<Route path="/login" component={Login} />
 		<Route path="/register" component={RegisterUser} />
 	</Router>
