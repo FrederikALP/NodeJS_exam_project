@@ -1,12 +1,12 @@
 <script>
     import { Link, Router, Route } from "svelte-navigator";
-    import { user } from "../../stores/generalStore.js";
     import { onMount } from 'svelte';
-    import { baseURL } from "../../stores/generalStore.js";
+    import { baseURL, id, user } from "../../stores/generalStore.js";
     import Subforum from "../Subforum/Subforum.svelte";
 
     let forums;
     let subforums;
+    let changingid;
 
    /* onMount(async () => {
         const response = await fetch('http://localhost:3000/forums');
@@ -40,6 +40,11 @@
         fetchForums()
         fetchSubForums()
     });
+
+    function changeId(newid) {
+        id.set(newid)
+        console.log(id)
+	}
 </script>
 
 <div>
@@ -59,10 +64,10 @@
                {#if subforum.mainid === forum._id}
                <Router>
                 <nav>
-                    <Link to="/subforum/{subforum._id}">{subforum.subheader}</Link>
+                    <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
                     <span>{subforum._id}</span>
                 </nav>
-                <Route path="/subforum" component={Subforum} />
+                <Route path="/subforum/:id" component={Subforum} />
                 </Router>
                 {/if}
             {/each}

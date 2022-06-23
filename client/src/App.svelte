@@ -41,7 +41,7 @@
 
 		<Route path="/" component={Frontpage} />
 		<Route path="/forum" component={Forum} />
-		<Route path="/subforum" component={Subforum} />
+		<Route path="/subforum/:id" component={Subforum} />
 		<Route path="/login" component={Login} />
 		<Route path="/register" component={RegisterUser} />
 	</Router>

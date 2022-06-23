@@ -28,8 +28,8 @@ router.get("/posts/:id", async (req, res) => {
 
 //Get post by subForum id
 router.get("/postsBySubforum/:id", async (req, res) => {
-    const subforumid = Number(req.params.id);
-    const postsBySubforum = await Posts.find(SubForum.find({subforumid}));
+    const subid = Number(req.params.id);
+    const postsBySubforum = await Posts.find( {subid} );
 
     try {
         res.send(postsBySubforum);
