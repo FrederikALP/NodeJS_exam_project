@@ -1,5 +1,7 @@
 import { Router } from "express";
 const router = Router();
+import mongoose from "mongoose";
+
 import Posts from "../schema/posts.js";
 import SubForum from "../schema/subForum.js";
  
@@ -39,6 +41,7 @@ router.get("/api/postsBySubforum/:id", async (req, res) => {
 });
 
 //Create post
+/*
 router.post("/api/post", async (req, res) => {
     const { postheader, postbody, replycount, subid, username, userid } = req.body;
 
@@ -57,6 +60,18 @@ router.post("/api/post", async (req, res) => {
     } catch (error) {
         res.status(500).send(error);
     }
+});
+*/
+
+//Create post
+router.post("/api/post", async (request, response) => {
+    const post = new Posts(request.body);
+    try {
+        await post.save();
+        response.send(post);
+      } catch (error) {
+        response.status(500).send(error);
+      }
 });
 
 //Update post by id
