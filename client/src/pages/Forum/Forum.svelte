@@ -59,7 +59,8 @@
                {#if subforum.mainid === forum._id}
                <Router>
                 <nav>
-                    <Link to="/subforum">{subforum.subheader}</Link>
+                    <Link to="/subforum/{subforum._id}">{subforum.subheader}</Link>
+                    <span>{subforum._id}</span>
                 </nav>
                 <Route path="/subforum" component={Subforum} />
                 </Router>
