@@ -3,7 +3,7 @@ const router = Router();
 import SubForum from "../schema/subForum.js";
 
 //Get all
-router.get("/subforums", async (req, res) => {
+router.get("/api/subforums", async (req, res) => {
     const subForums = await SubForum.find({});
   
     try {
@@ -14,7 +14,7 @@ router.get("/subforums", async (req, res) => {
   });
 
 //Get by mainforum id
-router.get("/subforums/:id", async (req, res) => {
+router.get("/api/subforums/:id", async (req, res) => {
     const mainid = Number(req.params.id);
     const subForums = await SubForum.findOne({ mainid });
   

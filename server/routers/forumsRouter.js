@@ -3,7 +3,7 @@ const router = Router();
 import Forum from "../schema/forum.js";
 
 //Get all
-router.get("/forums", async (req, res) => {
+router.get("/api/forums", async (req, res) => {
     const forums = await Forum.find({});
   
     try {

@@ -7,29 +7,15 @@
     let forums;
     let subforums;
 
-   /* onMount(async () => {
-        const response = await fetch('http://localhost:3000/forums');
-        const forumsArray = await response.json();
-        forums = forumsArray;
-        console.log(forums);
-    });
-
-    onMount(async () => {
-        const response = await fetch('http://localhost:3000/subforums');
-        const subforumsArray = await response.json();
-        subforums = subforumsArray;
-        console.log(subforums);
-    });
-*/
     async function fetchForums() {
-        const response = await fetch($baseURL + '/forums');
+        const response = await fetch($baseURL + '/api/forums');
         const forumsArray = await response.json();
         forums = forumsArray;
         console.log(forums);
     };
 
     async function fetchSubForums() {
-        const response = await fetch($baseURL + '/subforums');
+        const response = await fetch($baseURL + '/api/subforums');
         const forumsArray = await response.json();
         subforums = forumsArray;
         console.log(subforums);

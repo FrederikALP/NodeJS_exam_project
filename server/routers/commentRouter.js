@@ -4,7 +4,7 @@ import Comments from "../schema/comments.js";
 import Posts from "../schema/posts.js";
  
 //Get all Comments
-router.get("/comments", async (req, res) => {
+router.get("/api/comments", async (req, res) => {
     const comments = await Comments.find({});
 
     try {
@@ -15,7 +15,7 @@ router.get("/comments", async (req, res) => {
 });
 
 //Get comments by post id
-router.get("/commentsByPost/:id", async (req, res) => {
+router.get("/api/commentsByPost/:id", async (req, res) => {
     const postid = req.params.id;
     const commentsByPost = await Comments.find({ postid });
 
@@ -27,7 +27,7 @@ router.get("/commentsByPost/:id", async (req, res) => {
 });
 
 //Create comment on post id
-router.post("/comment", async (req, res) => {
+router.post("/api/comment", async (req, res) => {
     const { commentbody, replynumber, postid, user } = req.body;
 
     try {
@@ -44,7 +44,7 @@ router.post("/comment", async (req, res) => {
 });
 
 //Update comment by id
-router.patch("/comment/:id", async (req, res) => {
+router.patch("/api/comment/:id", async (req, res) => {
     try {
         await Comments.findByIdAndUpdate(req.params.id, request.body);
         await Comments.bulkSave();
@@ -55,7 +55,7 @@ router.patch("/comment/:id", async (req, res) => {
 });
 
 //Delete comment by id
-router.delete("/comment/:id", async (req, res) => {
+router.delete("/api/comment/:id", async (req, res) => {
     try {
         const comment = await Comments.findByIdAndDelete(req.params.id);
         if (!comment) res.status(404).send('No comment found');

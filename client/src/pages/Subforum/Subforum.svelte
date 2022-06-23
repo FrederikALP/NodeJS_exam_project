@@ -1,16 +1,17 @@
 <script>
     import { Link, Router, Route } from "svelte-navigator";
+    import { useNavigate, useLocation } from "svelte-navigator";
+
     import { onMount } from 'svelte';
     import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
     import Post from "../Post/Post.svelte";
-
-
+    
 
     let posts;
 
     async function fetchPosts() {
         console.log($subid);
-        const response = await fetch($baseURL + '/postsBySubforum/' + $subid);
+        const response = await fetch($baseURL + '/api/postsBySubforum/' + $subid);
         const postsArray = await response.json();
         posts = postsArray;
         console.log(posts);
@@ -24,10 +25,15 @@
         postid.set(newid)
         console.log(postid)
 	};
+
+
 </script>
 
-<div>   
-    <h1>Subforum og posts nedenunder</h1>
+<div>
+    <Link to="/create-new-post"><button>Create new post</button></Link>
+    {#if ($user.loggedIn)}
+    <h1>Welcome {$user.currentUser.username}</h1>
+    {/if}
     {#if posts} 
     {#each posts as post}
     <Router>

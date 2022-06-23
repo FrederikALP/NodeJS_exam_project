@@ -4,7 +4,7 @@ import Posts from "../schema/posts.js";
 import SubForum from "../schema/subForum.js";
  
 //Get all posts
-router.get("/posts", async (req, res) => {
+router.get("/api/posts", async (req, res) => {
     const posts = await Posts.find({});
 
     try {
@@ -15,7 +15,7 @@ router.get("/posts", async (req, res) => {
 });
 
 //Get post by id with req.body for some reason
-router.get("/posts/:id", async (req, res) => {
+router.get("/api/posts/:id", async (req, res) => {
     const postid = req.body;
     const posts = await Posts.find ({ postid }) ;
 
@@ -27,7 +27,7 @@ router.get("/posts/:id", async (req, res) => {
 });
 
 //Get post by subForum id
-router.get("/postsBySubforum/:id", async (req, res) => {
+router.get("/api/postsBySubforum/:id", async (req, res) => {
     const subid = Number(req.params.id);
     const postsBySubforum = await Posts.find( {subid} );
 
@@ -39,26 +39,28 @@ router.get("/postsBySubforum/:id", async (req, res) => {
 });
 
 //Create post
-router.post("/post", async (req, res) => {
-    const { postheader, date, postbody, replycount, subid, user } = req.body;
+router.post("/api/post", async (req, res) => {
+    const { postheader, postbody, replycount, subid, username, userid } = req.body;
 
     try {
-        const res = await Posts.create({
+        const response = await Posts.create({
             postheader,
-            date,
             postbody,
             replycount,
             subid,
-            user
+            user: {
+                username, 
+                userid
+            } 
         });
-        console.log('Post created succesfully: ', res);
+        console.log('Post created succesfully: ', response);
     } catch (error) {
         res.status(500).send(error);
     }
 });
 
 //Update post by id
-router.patch("/post/:id", async (req, res) => {
+router.patch("/api/post/:id", async (req, res) => {
     try {
         await Posts.findByIdAndUpdate(req.params.id, req.body);
         await Posts.bulkSave();
@@ -69,7 +71,7 @@ router.patch("/post/:id", async (req, res) => {
 });
 
 //Delete post by id
-router.delete("/post/:id", async (req, res) => {
+router.delete("/api/post/:id", async (req, res) => {
     try {
         const post = await Posts.findByIdAndDelete(req.params.id);
         if (!post) res.status(404).send('No post found');

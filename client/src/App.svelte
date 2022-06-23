@@ -14,6 +14,7 @@
 	import Forum from "./pages/Forum/Forum.svelte";
 	import Subforum from "./pages/Subforum/Subforum.svelte";
 	import Post from "./pages/Post/Post.svelte";
+	import CreateNewPost from "./pages/Post/CreateNewPost.svelte";
 
 	async function handleLogout() {
 		const response = await fetch($baseURL + '/api/logout');
@@ -44,6 +45,7 @@
 		<Route path="/forum" component={Forum} />
 		<Route path="/subforum/:id" component={Subforum} />
 		<Route path="/post/:id" component={Post} />
+		<Route path="/create-new-post" component={CreateNewPost} />
 		<Route path="/login" component={Login} />
 		<Route path="/register" component={RegisterUser} />
 	</Router>

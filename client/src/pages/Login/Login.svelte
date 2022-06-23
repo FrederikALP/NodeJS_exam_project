@@ -2,6 +2,8 @@
     import { useNavigate, useLocation } from "svelte-navigator";
     import { toast } from "@zerodevx/svelte-toast";
     import { user } from "../../stores/generalStore";
+    import { baseURL } from "../../stores/generalStore.js";
+
     
     const navigate = useNavigate();
     const location = useLocation();
@@ -13,7 +15,7 @@
         const username = document.getElementById('username').value
         const password = document.getElementById('password').value
 
-        const response = await fetch('http://localhost:3000/api/login', {
+        const response = await fetch($baseURL + '/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

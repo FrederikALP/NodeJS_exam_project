@@ -7,7 +7,7 @@
 
     async function fetchComments() {
         console.log($postid);
-        const response = await fetch($baseURL + '/commentsByPost/' + $postid);
+        const response = await fetch($baseURL + '/api/commentsByPost/' + $postid);
         const commentsArray = await response.json();
         comments = commentsArray;
         console.log(comments);

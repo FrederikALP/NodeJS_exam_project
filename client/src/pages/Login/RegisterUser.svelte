@@ -1,6 +1,7 @@
 <script>
     import { useNavigate, useLocation } from "svelte-navigator";
     import { toast } from "@zerodevx/svelte-toast";
+    import { baseURL } from "../../stores/generalStore.js";
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -8,12 +9,12 @@
     const form = document.getElementById('register');
     
     async function registerUser(event) {
-        event.preventDefault()
+        event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const email = document.getElementById('email').value;
 
-        const result = await fetch('http://localhost:3000/api/register', {
+        const result = await fetch($baseURL + '/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
