@@ -14,8 +14,8 @@
 
     onMount(async () => {
         const response = await fetch('http://localhost:3000/subforums');
-        const forumsArray = await response.json();
-        subforums = forumsArray;
+        const subforumsArray = await response.json();
+        subforums = subforumsArray;
         console.log(subforums);
     });
 */
