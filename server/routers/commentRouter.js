@@ -4,62 +4,65 @@ import Comments from "../schema/comments.js";
 import Posts from "../schema/posts.js";
  
 //Get all Comments
-router.get("/comments", async (request, response) => {
-    const posts = await Comments.find({});
+router.get("/comments", async (req, res) => {
+    const comments = await Comments.find({});
 
     try {
-        response.send(Comments);
+        res.send(comments);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
 //Get comments by post id
-router.get("/commentsByPost/:id", async (request, response) => {
-    const commentsByPost = await Comments.find(Posts.find({id}));
+router.get("/commentsByPost/:id", async (req, res) => {
+    const postid = req.params.id;
+    const commentsByPost = await Comments.find(Posts.find({postid}));
 
     try {
-        response.send('Comments by post: ', Comments);
+        res.send(commentsByPost);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     } 
 });
 
 //Create comment on post id
-router.post("/comment", async (request, response) => {
+router.post("/comment", async (req, res) => {
     const { commentbody, replynumber, postid, user } = req.body;
 
     try {
-        const response = await Comments.create({
+        const res = await Comments.create({
             commentbody, 
             replynumber, 
             postid, 
             user
         });
-        console.log('Comment created succesfully: ', response);
+        console.log('Comment created succesfully: ', res);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
 //Update comment by id
-router.patch("/comment/:id", async (request, response) => {
+router.patch("/comment/:id", async (req, res) => {
     try {
-        await Comments.findByIdAndUpdate(request.params.id, requestbody);
+        await Comments.findByIdAndUpdate(req.params.id, request.body);
         await Comments.bulkSave();
-        response.send('Comment was updated: ', Comments);
+        res.send('Comment was updated: ', Comments);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
 //Delete comment by id
-router.delete("/comment/:id", async (request, response) => {
+router.delete("/comment/:id", async (req, res) => {
     try {
-        const comment = await Comments.findByIdAndDelete(request.params.id);
-        if (!comment) response.status(404).send('No comment found');
-        response.status(200).send();
+        const comment = await Comments.findByIdAndDelete(req.params.id);
+        if (!comment) res.status(404).send('No comment found');
+        res.status(200).send();
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
+
+export default router;
