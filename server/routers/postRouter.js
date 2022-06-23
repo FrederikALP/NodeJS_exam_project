@@ -15,14 +15,14 @@ router.get("/posts", async (req, res) => {
 });
 
 //Get post by id with req.body for some reason
-router.get("/posts", async (request, response) => {
-    const postid = request.body;
+router.get("/posts/:id", async (req, res) => {
+    const postid = req.body;
     const posts = await Posts.find ({ postid }) ;
 
     try {
-        response.send(posts);
+        res.send(posts);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
