@@ -5,7 +5,7 @@
     let forums;
     let subforums;
 
-    onMount(async () => {
+   /* onMount(async () => {
         const response = await fetch('http://localhost:3000/forums');
         const forumsArray = await response.json();
         forums = forumsArray;
@@ -18,6 +18,26 @@
         subforums = forumsArray;
         console.log(subforums);
     });
+*/
+    async function fetchForums() {
+        const response = await fetch('http://localhost:3000/forums');
+        const forumsArray = await response.json();
+        forums = forumsArray;
+        console.log(forums);
+    };
+
+    async function fetchSubForums() {
+        const response = await fetch('http://localhost:3000/subforums');
+        const forumsArray = await response.json();
+        subforums = forumsArray;
+        console.log(subforums);
+    };
+
+    onMount(async () => {
+        fetchForums()
+        fetchSubForums()
+    });
+
 </script>
 
 <div>
@@ -30,7 +50,7 @@
         {#if forums} 
 		{#each forums as forum}
 			<li>
-					{forum.mainheader}
+				{forum.mainheader}
 			</li>
             {#each subforums as subforum}
                {#if subforum.mainid === forum._id}
