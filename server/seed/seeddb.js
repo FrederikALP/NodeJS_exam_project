@@ -3,7 +3,7 @@ import Forum from "../schema/forum.js";
 import SubForum from "../schema/subForum.js";
 import Posts from "../schema/posts.js";
 import Comments from "../schema/comments.js";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 dotenv.config();
 
 mongoose.connect("mongodb+srv://"+process.env.MONGO_USER+":"+process.env.MONGO_PASSWORD+"@hearingimpairedforum.arjmn.mongodb.net/HearingImpaired?retryWrites=true&w=majority");
