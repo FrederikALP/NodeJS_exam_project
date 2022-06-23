@@ -1,5 +1,6 @@
 <div>
-    <h1>Frontpage WIP</h1>
-    <h2>Jeg har lavet en ændring</h2>
-    <h3>Endnu en test</h3>
+    <h1>Welcome!</h1>
+    <h2>A forum dedicated to hearing impaired</h2>
+    <h3>This forum is created, in order to inform, reach out to and for socializing among hearing impaired people,
+         aswell as share knowlegde and expirences. </h3>
 </div>
