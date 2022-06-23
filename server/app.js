@@ -56,8 +56,9 @@ db.once('open', function(callback) {
 //Routers
 import usersRouter from "./routers/usersRouter.js"; 
 import forumsRouter from "./routers/forumsRouter.js"
-import subForumsRouter from "./routers/subForumsRouter.js"; 
-app.use(usersRouter, forumsRouter, subForumsRouter);
+import subForumsRouter from "./routers/subForumsRouter.js";
+import postsRouter from "./routers/postRouter.js";
+app.use(usersRouter, forumsRouter, subForumsRouter, postsRouter);
 
 //Default fallback
 app.get('*', (req, res) => {
