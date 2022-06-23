@@ -4,6 +4,8 @@
     import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
     import Post from "../Post/Post.svelte";
 
+
+
     let posts;
 
     async function fetchPosts() {
