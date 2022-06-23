@@ -30,13 +30,10 @@
     <h1>Subforum og posts nedenunder</h1>
     {#if posts} 
     {#each posts as post}
-    <Router>
         <nav>
             <Link on:click="{changeId(post._id)}" to="/post/{post._id}">{post.postheader}</Link>
             <span>{post._id}</span>
         </nav>
-        <Route path="/post/:id" component={Post} />
-        </Router>
     {/each}
     {/if}
 </div>
