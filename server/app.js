@@ -4,6 +4,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+//dotenv
+import dotenv from "dotenv"
+dotenv.config();
+
 //Path
 import path from "path";
 app.use(express.static(path.resolve("../client/public")));
@@ -25,19 +29,20 @@ app.use(bodyParser.json());
 //session
 import session from "express-session";
 app.use(session({
-    secret: 'forumhearing',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    rolling: true,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 1000 * 60 * 10
+     }
 }));
 
 //Cors
 import cors from "cors";
 app.use(cors());
-
-//dotenv
-import dotenv from "dotenv"
-dotenv.config();
 
 //MongoDB
 mongoose.connect("mongodb+srv://"+process.env.MONGO_USER+":"+process.env.MONGO_PASSWORD+"@hearingimpairedforum.arjmn.mongodb.net/HearingImpaired?retryWrites=true&w=majority");
@@ -50,6 +55,11 @@ db.once('open', function(callback) {
 //Routers
 import usersRouter from "./routers/usersRouter.js"; 
 app.use(usersRouter);
+
+//Default fallback
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve("../client/public/index.html"));
+});
 
 //Port
 const PORT = process.env.PORT || 3000;
