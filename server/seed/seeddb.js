@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import Forum from "../schema/forum.js";
 import SubForum from "../schema/subForum.js";
+import dotenv from "dotenv"
+dotenv.config();
 
-mongoose.connect("mongodb+srv://"user":"password"@hearingimpairedforum.arjmn.mongodb.net/HearingImpaired?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://"+process.env.MONGO_USER+":"+process.env.MONGO_PASSWORD+"@hearingimpairedforum.arjmn.mongodb.net/HearingImpaired?retryWrites=true&w=majority");
 const db = mongoose.connection;
 db.on('Error', console.log.bind(console, "DB connection error"));
 db.once('open', function(callback) {
