@@ -16,7 +16,7 @@ router.get("/subforums", async (req, res) => {
 //Get by mainforum id
 router.get("/subforums/:id", async (req, res) => {
     const mainid = Number(req.params.id);
-    const subForums = await SubForum.findOne( {mainid} );
+    const subForums = await SubForum.findOne({ mainid });
   
     try {
       res.send(subForums);

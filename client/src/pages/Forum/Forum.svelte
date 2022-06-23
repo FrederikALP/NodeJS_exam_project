@@ -1,12 +1,11 @@
 <script>
     import { Link, Router, Route } from "svelte-navigator";
     import { onMount } from 'svelte';
-    import { baseURL, id, user } from "../../stores/generalStore.js";
+    import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
     import Subforum from "../Subforum/Subforum.svelte";
 
     let forums;
     let subforums;
-    let changingid;
 
    /* onMount(async () => {
         const response = await fetch('http://localhost:3000/forums');
@@ -42,9 +41,9 @@
     });
 
     function changeId(newid) {
-        id.set(newid)
-        console.log(id)
-	}
+        subid.set(newid)
+        console.log(subid)
+	};
 </script>
 
 <div>
