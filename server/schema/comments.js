@@ -5,10 +5,7 @@ const Comments = new mongoose.Schema(
         commentbody: String, 
         replynumber: Number, 
         postid: String,
-        user: {
-            username: String,
-            userid: String
-        }
+        userid: String
 	},
     { collection: 'comments' }
 );

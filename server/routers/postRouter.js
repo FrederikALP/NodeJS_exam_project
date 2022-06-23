@@ -8,7 +8,6 @@ import SubForum from "../schema/subForum.js";
 //Get all posts
 router.get("/api/posts", async (req, res) => {
     const posts = await Posts.find({});
-
     try {
         res.send(posts);
     } catch (error) {
@@ -41,31 +40,8 @@ router.get("/api/postsBySubforum/:id", async (req, res) => {
 });
 
 //Create post
-/*
-router.post("/api/post", async (req, res) => {
-    const { postheader, postbody, replycount, subid, username, userid } = req.body;
-
-    try {
-        const response = await Posts.create({
-            postheader,
-            postbody,
-            replycount,
-            subid,
-            user: {
-                username, 
-                userid
-            } 
-        });
-        console.log('Post created succesfully: ', response);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
-*/
-
-//Create post
 router.post("/api/post", async (request, response) => {
-    const post = new Posts(request.body);
+    const post = new Posts(request.body.post);
     try {
         await post.save();
         response.send(post);
