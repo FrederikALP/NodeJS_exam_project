@@ -63,5 +63,3 @@ router.delete("/comment/:id", async (request, response) => {
         response.status(500).send(error);
     }
 });
-
-

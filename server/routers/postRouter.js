@@ -14,6 +14,18 @@ router.get("/posts", async (request, response) => {
     }
 });
 
+//Get post by id with req.body for some reason
+router.get("/posts", async (request, response) => {
+    const postid = request.body;
+    const posts = await Posts.find ({ postid }) ;
+
+    try {
+        response.send(posts);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 //Get post by subForum id
 router.get("/postsBySubforum/:id", async (request, response) => {
     const subforumid = Number(request.params.id);
