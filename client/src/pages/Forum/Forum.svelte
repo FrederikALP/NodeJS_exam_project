@@ -52,6 +52,7 @@
 			<li>
 				{forum.mainheader}
 			</li>
+            {#if subforums} 
             {#each subforums as subforum}
                {#if subforum.mainid === forum._id}
                <li> 
@@ -59,6 +60,7 @@
                 </li>
                 {/if}
             {/each}
+            {/if}
 		{/each}
         {/if}
 	</ul>
