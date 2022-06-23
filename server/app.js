@@ -30,6 +30,7 @@ app.use(bodyParser.json());
 import session from "express-session";
 app.use(session({
     secret: process.env.SESSION_SECRET,
+    name: "hearingimpairedforum",
     resave: true,
     rolling: true,
     saveUninitialized: false,
@@ -54,7 +55,9 @@ db.once('open', function(callback) {
 
 //Routers
 import usersRouter from "./routers/usersRouter.js"; 
-app.use(usersRouter);
+import forumsRouter from "./routers/forumsRouter.js"
+import subForumsRouter from "./routers/subForumsRouter.js"; 
+app.use(usersRouter, forumsRouter, subForumsRouter);
 
 //Default fallback
 app.get('*', (req, res) => {
