@@ -27,14 +27,14 @@ async function createNewPost(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            postheader,
-            postbody,
-            replycount,
-            subid,
-            user: {
-                username: "Kristian",
-                userid: "62b318932f4dcd817799a245"
-            } 
+            "postheader": postheader,
+            "postbody": postbody,
+            "replycount": 0,
+            "subid": 1,
+            "user": {
+                "username": "Kristian",
+                "userid": "62b318932f4dcd817799a245"
+        }
         })
     }).then((res) => res.json())
 
