@@ -47,13 +47,10 @@
             {#if subforums} 
             {#each subforums as subforum}
                {#if subforum.mainid === forum._id}
-               <Router>
                 <nav>
                     <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
                     <span>{subforum._id}</span>
                 </nav>
-                <Route path="/subforum/:id" component={Subforum} />
-                </Router>
                 {/if}
             {/each}
             {/if}
