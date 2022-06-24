@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { ObjectId } from "mongodb";
 const router = Router();
 import mongoose from "mongoose";
 
@@ -17,8 +18,8 @@ router.get("/api/posts", async (req, res) => {
 
 //Get post by id with req.body for some reason
 router.get("/api/posts/:id", async (req, res) => {
-    const postid = req.body;
-    const posts = await Posts.find ({ postid }) ;
+    const postid = ObjectId(req.params.id);
+    const posts = await Posts.findOne({ postid }) ;
 
     try {
         res.send(posts);

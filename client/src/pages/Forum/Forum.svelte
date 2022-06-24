@@ -21,15 +21,15 @@
         console.log(subforums);
     };
 
-    onMount(async () => {
-        fetchForums()
-        fetchSubForums()
-    });
-
     function changeId(newid) {
         subid.set(newid)
         console.log(subid)
 	};
+
+    onMount(async () => {
+        fetchForums()
+        fetchSubForums()
+    });
 </script>
 
 <div>
