@@ -10,6 +10,7 @@
 
     let comments;
     let newCommentBody;
+    let patchedCommentBody;
     let users;
     let userIsLoggedIN;
     let post;
@@ -91,13 +92,17 @@
     }
 
     async function updateComment(id) {
+ 
         let updatedComment = {
-            commentbody: newCommentBody,
-            postid: $postid,
-            userid: $user.currentUser._id
+            commentbody: patchedCommentBody
         };
+        console.log(updatedComment);
         const res = await fetch($baseURL + '/api/comment/' + id, {
             method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedComment)
             })
             console.log(res.status);
             
@@ -129,9 +134,11 @@
     {#if comments, post}
     <table>
     <tr>
+        {#if users}
         <td>{#each users as postuser}{#if post.userid === postuser._id}{postuser.username}{/if}{/each}</td>
         <td>Post text: {post.postbody}</td>
         <td>edit post skal være her</td>
+        {/if}
     </tr>
     {#each comments as comment}
     <tr>
@@ -143,7 +150,7 @@
                 {#if !comment.editToggle}
                     Comment: {comment.commentbody}
                 {:else}
-                    <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{comment.commentbody}" id="commenttext" bind:value="{comment.commentbody}"></textarea>
+                    <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{comment.commentbody}" id="commenttext" bind:value="{patchedCommentBody}"></textarea>
                     <button on:click="{updateComment(comment._id)}" on:click="{() => comment.editToggle = !comment.editToggle}">save</button>
                 {/if}
             </td>
