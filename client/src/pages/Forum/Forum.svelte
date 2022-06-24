@@ -37,24 +37,44 @@
     {#if ($user.loggedIn)}
     <h1>Welcome {$user.currentUser.username}</h1>
     {/if}
-    
-    <ul>
-        {#if forums} 
-		{#each forums as forum}
-			<li>
-				{forum.mainheader}
-			</li>
-            {#if subforums} 
-            {#each subforums as subforum}
-               {#if subforum.mainid === forum._id}
-                <nav>
-                    <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
-                    <span>{subforum._id}</span>
-                </nav>
+    <table>
+          {#if forums} 
+            {#each forums as forum}
+            <tr>
+                <th>  {forum.mainheader} </th>
+            </tr>
+                {#if subforums} 
+                {#each subforums as subforum}
+                {#if subforum.mainid === forum._id}
+                    <nav>
+                    <tr>
+                       <th> <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
+                        {subforum._id}
+                    </th> 
+                    </tr>
+                    </nav>
+                    {/if}
+                {/each}
                 {/if}
             {/each}
             {/if}
-		{/each}
-        {/if}
-	</ul>
+    </table>
 </div>
+
+
+<style>
+    table, tr, th {
+        border: solid black 1px;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    td {
+        text-align: left;
+    }
+
+    table {
+        width: 50%;
+        margin: auto;
+    }
+</style>

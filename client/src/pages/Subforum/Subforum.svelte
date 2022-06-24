@@ -8,17 +8,25 @@
     
 
     let posts;
+    let users;
 
     async function fetchPosts() {
-        console.log($subid);
         const response = await fetch($baseURL + '/api/postsBySubforum/' + $subid);
         const postsArray = await response.json();
         posts = postsArray;
         console.log(posts);
     };
 
+    async function fetchUsers() {
+        const response = await fetch($baseURL + '/api/users');
+        const usersArray = await response.json();
+        users = usersArray;
+        console.log(users);
+    };
+
     onMount(async () => {
-        fetchPosts()
+        fetchPosts();
+        fetchUsers();
     });
 
     function changeId(newid) {
@@ -34,12 +42,45 @@
     {#if ($user.loggedIn)}
     <h1>Welcome {$user.currentUser.username}</h1>
     {/if}
-    {#if posts} 
-    {#each posts as post}
-        <nav>
-            <Link on:click="{changeId(post._id)}" to="/post/{post._id}">{post.postheader}</Link>
-            <span>{post._id}</span>
-        </nav>
-    {/each}
-    {/if}
+    <table>
+        {#if posts} 
+        {#each posts as post}
+            <nav>
+                <tr>
+                    <Link on:click="{changeId(post._id)}" to="/post/{post._id}">
+                    <th>
+                Postname: {post.postheader}
+                 </th>
+                </Link>
+                 {#if users}
+                 {#each users as user}
+                 {#if post.userid === user._id}
+                 <th>
+                    Posted by {user.username}
+                </th>
+                {/if}
+                {/each}
+                {/if}
+            </tr>
+            </nav>
+        {/each}
+        {/if}
+    </table>
 </div>
+
+<style>
+    table, tr, th {
+        border: solid black 1px;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    td {
+        text-align: left;
+    }
+
+    table {
+        width: 50%;
+        margin: auto;
+    }
+</style>
