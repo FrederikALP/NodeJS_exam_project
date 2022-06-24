@@ -3,11 +3,15 @@
     import { onMount } from 'svelte';
     import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
     import { toast } from "@zerodevx/svelte-toast";
+    import { useNavigate, useLocation } from "svelte-navigator";
 
+    const navigate = useNavigate();
+    const location = useLocation();
 
     let comments;
     let newCommentBody;
     let users;
+    
 
     async function fetchComments() {
         console.log($postid);
@@ -24,6 +28,24 @@
         console.log(users);
     };
 
+    async function deleteComment(id) {
+        const res = await fetch($baseURL + '/api/comment/' + id, {
+            method: 'DELETE',
+            })
+            console.log(res.status);
+            
+            const result = await res.json()
+            if (res.status === 200) {
+                toast.push('Comment deleted succesfully')
+                console.log(result);
+                const from = ($location.state && $location.state.from) || "/post/" + postid;
+                navigate(from, { replace: true });
+            } else {
+                toast.push(res.error);
+            }
+        
+    }
+
     async function createNewComment() {
         let newComment = {
             commentbody: newCommentBody,
@@ -32,21 +54,23 @@
         };
         console.log(newComment)
 
-        const response = await fetch($baseURL + '/api/comment', {
+        const res = await fetch($baseURL + '/api/comment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({comment: newComment})
             })
-            console.log(response.status)
+            console.log(res.status)
         
-        const result = await response.json()
-            if (response.status === 200) {
+        const result = await res.json()
+            if (res.status === 200) {
                 toast.push('Comment created succesfully')
                 console.log(result);
+                const from = ($location.state && $location.state.from) || "/post/" + postid;
+                navigate(from, { replace: true });
             } else {
-                toast.push(response.error);
+                toast.push(res.error);
             }
     }
 
@@ -71,6 +95,9 @@
            <span>@User: {user.username}</span>
            <br>
            <span>Comment: {comment.commentbody}</span>
+           <span>Comment ID: {comment._id}</span>
+
+           <Link on:click="{deleteComment(comment._id)}" to="/deleteComment/{comment._id}"><button>Delete comment</button></Link>
            <br>
            <br>
             {/if}

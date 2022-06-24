@@ -27,13 +27,13 @@ router.get("/api/commentsByPost/:id", async (req, res) => {
 });
 
 //Create comment on post id
-router.post("/api/comment", async (request, response) => {
-    const comment = new Comments(request.body.comment);
+router.post("/api/comment", async (req, res) => {
+    const comment = new Comments(req.body.comment);
     try {
         await comment.save();
-        response.send(comment);
+        res.send(comment);
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
@@ -41,7 +41,7 @@ router.post("/api/comment", async (request, response) => {
 //Update comment by id
 router.patch("/api/comment/:id", async (req, res) => {
     try {
-        await Comments.findByIdAndUpdate(req.params.id, request.body);
+        await Comments.findByIdAndUpdate(req.params.id, req.body);
         await Comments.bulkSave();
         res.send('Comment was updated: ', Comments);
     } catch (error) {
@@ -53,8 +53,7 @@ router.patch("/api/comment/:id", async (req, res) => {
 router.delete("/api/comment/:id", async (req, res) => {
     try {
         const comment = await Comments.findByIdAndDelete(req.params.id);
-        if (!comment) res.status(404).send('No comment found');
-        res.status(200).send();
+        res.status(200).send(comment);
     } catch (error) {
         res.status(500).send(error);
     }
