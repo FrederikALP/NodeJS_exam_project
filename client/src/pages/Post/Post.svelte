@@ -94,7 +94,6 @@
         {#if users} 
         {#each users as user}
            {#if comment.userid === user._id}
-<<<<<<< HEAD
            <span>@User: {user.username}</span>
            <br>
            <span>Comment: {comment.commentbody}</span>
@@ -103,10 +102,8 @@
            <Link on:click="{deleteComment(comment._id)}" to="/deleteComment/{comment._id}"><button>Delete comment</button></Link>
            <br>
            <br>
-=======
            <td>@User: {user.username}</td>
            <td>Comment: {comment.commentbody}</td>
->>>>>>> 4850768a23a696279679ba0e00eb0c4984a4db2b
             {/if}
         {/each}
         {/if}
