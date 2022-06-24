@@ -94,16 +94,9 @@
         {#if users} 
         {#each users as user}
            {#if comment.userid === user._id}
-           <span>@User: {user.username}</span>
-           <br>
-           <span>Comment: {comment.commentbody}</span>
-           <span>Comment ID: {comment._id}</span>
-
-           <Link on:click="{deleteComment(comment._id)}" to="/deleteComment/{comment._id}"><button>Delete comment</button></Link>
-           <br>
-           <br>
            <td>@User: {user.username}</td>
            <td>Comment: {comment.commentbody}</td>
+           <td><Link on:click="{deleteComment(comment._id)}" to="/deleteComment/{comment._id}"><button>Delete comment</button></Link></td>
             {/if}
         {/each}
         {/if}
