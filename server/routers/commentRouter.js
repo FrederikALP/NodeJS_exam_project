@@ -40,10 +40,12 @@ router.post("/api/comment", async (req, res) => {
 
 //Update comment by id
 router.patch("/api/comment/:id", async (req, res) => {
-    const comment = await Comments.findByIdAndUpdate(req.params.id, req.body);
+    let _id = req.params.id;
     try {
-        await comment.save();
-        res.send(comment);
+        await Comments.findByIdAndUpdate(req.params.id, req.body);
+        let updatedcomment = await Comments.findOne({_id});
+        console.log(updatedcomment);
+        res.send(updatedcomment);
     } catch (error) {
         res.status(500).send(error);
     }

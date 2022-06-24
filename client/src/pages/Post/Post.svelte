@@ -113,24 +113,6 @@
         
     }
 
-    async function deleteComment(id) {
-        const res = await fetch($baseURL + '/api/comment/' + id, {
-            method: 'DELETE',
-            })
-            console.log(res.status);
-            
-            const result = await res.json()
-            if (res.status === 200) {
-                toast.push('Comment deleted succesfully')
-                console.log(result);
-                const from = ($location.state && $location.state.from) || "/post/" + postid;
-                navigate(from, { replace: true });
-            } else {
-                toast.push(res.error);
-            }
-        
-    }
-
     onMount(async () => {
         fetchComments();
         fetchUsers();
