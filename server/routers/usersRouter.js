@@ -11,9 +11,6 @@ router.get("/api/users", async (req, res) => {
 		user.password = "";
 		return user;
 	})
-	
-	console.log(users);
-
     try {
         res.send(users);
     } catch (error) {
@@ -29,9 +26,6 @@ router.get("/api/users/:id", async (req, res) => {
 		user.password = "";
 		return user;
 	})
-	
-	console.log(users);
-
     try {
         res.send(users);
     } catch (error) {
