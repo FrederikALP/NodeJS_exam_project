@@ -23,6 +23,7 @@
 
     function changeId(newid) {
         subid.set(newid)
+        localStorage.setItem("persistentsubid", newid);
         console.log($subid)
 	};
 
@@ -32,37 +33,98 @@
     });
 </script>
 
-<div>
+{#if ($user.loggedIn)}
+<h1>Welcome {$user.currentUser.username}</h1>
+{/if}
+
+<div class="fullpage">
+    <div class="header">
     <h1>Forum</h1>
-    {#if ($user.loggedIn)}
-    <h1>Welcome {$user.currentUser.username}</h1>
-    {/if}
-    <table>
-          {#if forums} 
-            {#each forums as forum}
-            <tr>
-                <th>  {forum.mainheader} </th>
-            </tr>
-                {#if subforums} 
-                {#each subforums as subforum}
-                {#if subforum.mainid === forum._id}
-                    <nav>
-                    <tr>
-                       <th> <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
+</div>
+    <div class="forumcontent">
+        {#if forums} 
+          {#each forums as forum}
+          <div class="headerandsub">
+          <div class="forumheader">
+              <h3>  {forum.mainheader} </h3>
+            </div>
+            {#if subforums} 
+            {#each subforums as subforum}
+            {#if subforum.mainid === forum._id}
+            <div class="subforum">
+                <nav>
+                    <h4> <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
                         {subforum._id}
-                    </th> 
-                    </tr>
-                    </nav>
-                    {/if}
-                {/each}
-                {/if}
+                    </h4> 
+                </nav>
+            </div>
+            {/if}
             {/each}
             {/if}
-    </table>
-</div>
-
-
+            </div>
+            {/each}
+            {/if}
+        </div>
+    </div>
+        
+        
 <style>
+    h1 {
+        color: white;
+    }
+
+    h2 {
+
+    }
+
+    h3 {
+        color: white;
+        margin: 0px;
+    }
+
+    h4 {
+        color: grey;
+    }
+
+    .fullpage {
+        width: 50%;
+        margin: auto;
+        text-align: left
+    }
+
+    .header {
+        border: solid black 1px;
+        border-collapse: collapse;
+        margin-top: 40px;
+        border-radius: 0.25em;
+        background-color: grey;
+    }
+
+    .forumcontent {
+        border-collapse: collapse;
+        border-top: 20px;
+    }
+
+    .headerandsub {
+        border: solid black 1px;
+        border-radius: 0.25em;
+        margin-top: 10px;
+    }
+
+    .forumheader {        
+        background-color: grey;
+        border-bottom: solid black 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .subforum {
+        background-color: lightgrey;
+        border-top: solid black 1px;
+        border-bottom: solid black 1px;
+        border-collapse: collapse;
+    }
+
     table, tr, th {
         border: solid black 1px;
         border-collapse: collapse;

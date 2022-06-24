@@ -10,9 +10,10 @@
     let posts;
     let users;
     let subforums;
+    const subforumid = localStorage.getItem("persistentsubid");
 
     async function fetchPosts() {
-        const response = await fetch($baseURL + '/api/postsBySubforum/' + $subid);
+        const response = await fetch($baseURL + '/api/postsBySubforum/' + subforumid);
         const postsArray = await response.json();
         posts = postsArray;
         console.log(posts);
@@ -41,67 +42,90 @@
         fetchPosts();
         fetchUsers();
         fetchSubForums();
-        console.log($subid);
     });
 </script>
 
-<div>
-    <Link to="/create-new-post"><button>Create new post</button></Link>
+<div class="fullpage">
+    <Link to="/create-new-post"><button>Create post</button></Link>
     {#if ($user.loggedIn)}
     <h1>Welcome {$user.currentUser.username}</h1>
     {/if}
-    <table>
+    <div class="forumcontent">
         {#if posts && users && subforums}
         {#each subforums as subforum}
-        <tr>
-            {#if subforum._id === $subid}
-            <td>Subforumname: {subforum.subheader}</td>
+        {#if subforum._id === $subid}
+        <div class="forumsubheader">
+            <h3>Subforumname: {subforum.subheader}</h3>
+        </div>
             {/if}
-        </tr>
         {/each}
         {#each posts as post}
-            <nav>
-                <tr>
-                    <Link on:click="{changeId(post._id)}" to="/post/{post._id}">
-                    <th>
-                Postname: {post.postheader}
-                </th>
-                </Link>
-                 {#each users as user}
-                 {#if post.userid === user._id}
-                 <th>
-                    Posted by {user.username}
-                </th>
-                {/if}
-                {/each}
-            </tr>
-            </nav>
+        <div class="forumpost">
+            {#each users as user}
+            {#if post.userid === user._id}
+            <div class="postuser">
+               <h4>Posted by {user.username}</h4>
+           </div>
+           {/if}
+           {/each}
+            <div class="postname">
+            <Link on:click="{changeId(post._id)}" to="/post/{post._id}">
+                <h4>Postname: {post.postheader}</h4>
+            </Link>
+            </div>
+        </div>
         {/each}
         {/if}
-    </table>
+    </div>
 </div>
 
 <style>
-    table, tr, th {
-        border: solid black 1px;
-        border-collapse: collapse;
-        text-align: left;
+    h1 {
+        color: white;
     }
 
-    tr {
-        width: 100%;
+    h2 {
+
     }
 
-    th {
-        width: 100%;
+    h3 {
+        color: white;
+        margin: 0px;
     }
 
-    td {
-        text-align: left;
+    h4 {
+        color: rgb(60, 57, 57);
+        margin: 0px;
     }
 
-    table {
+    .fullpage {
         width: 50%;
         margin: auto;
+        text-align: left
+    }
+    
+    .forumcontent {
+        border-collapse: collapse;
+        border-top: 20px;
+    }
+
+    .forumsubheader {
+        border: solid black 1px;
+        border-collapse: collapse;
+        margin-top: 40px;
+        border-radius: 0.25em;
+        background-color: grey;
+    }
+
+    .forumpost {
+        border: solid black 1px;
+        border-radius: 0.25em;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(163, 163, 163);
+    }
+
+    .postuser {        
+
     }
 </style>
