@@ -162,14 +162,16 @@
 </script>
 
 <div>   
-    {#if comments && post}
+    {#if comments && post && users}
     <table>
     <tr>
-        {#if users}
-        <td>{#each users as postuser}{#if post.userid === postuser._id}{postuser.username}{/if}{/each}</td>
+        <td>Threadheader: {post.postheader}</td>
+    </tr>
+    <tr>
+        <td>{#each users as postuser}{#if post.userid === postuser._id}Threadstarter: {postuser.username}{/if}{/each}</td>
         <td>
             {#if !post.editToggle}
-                Comment: {post.postbody}
+                Postbody: {post.postbody}
             {:else}
                 <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{post.postbody}" id="postbody" bind:value="{patchedPostBody}"></textarea>
                 <button on:click="{updatePost(post._id)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
@@ -177,7 +179,6 @@
         </td>
         {#if (post.userid === $user.currentUser._id)}
         <td><button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button></td>
-        {/if}
         {/if}
     </tr>
     {#each comments as comment}
