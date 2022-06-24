@@ -21,6 +21,24 @@ router.get("/api/users", async (req, res) => {
     }
 });
 
+//Get user by id
+router.get("/api/users/:id", async (req, res) => {
+	const _id = req.params.id;
+    const users = await User.findOne({ _id });
+	users.map(user => {
+		user.password = "";
+		return user;
+	})
+	
+	console.log(users);
+
+    try {
+        res.send(users);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 router.post('/api/login', async (req, res) => {
 	const { username, password } = req.body;
 	const user = await User.findOne({ username }).lean();

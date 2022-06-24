@@ -62,9 +62,10 @@ async function createNewPost() {
     <h1>Welcome user {$user.currentUser.username} userid: {$user.currentUser._id}</h1>
     <h1>Welcome {$user.currentUser._id}</h1>
 
-    {/if}
+    
     <h1>New post</h1>
         <input type="text" name="postheader" autocomplete="off" placeholder="Post Title" id="header" bind:value="{newheader}" required>
         <input type="text" name="postbody" autocomplete="off" placeholder="Text" id="posttext" bind:value="{newbody}" required>  
         <button on:click={createNewPost}>submitform</button>
+        {/if}
 </div>

@@ -24,6 +24,14 @@
         console.log(users);
     };
 
+    async function fetchUser(postuserid) {
+        const userid = postuserid;
+        const response = await fetch($baseURL + '/api/users' + userid);
+        const usersArray = await response.json();
+        users = usersArray;
+        console.log(users);
+    };
+
     async function createNewComment() {
         let newComment = {
             commentbody: newCommentBody,
@@ -62,22 +70,41 @@
 </script>
 
 <div>   
-
     {#if comments} 
+    <table>
+        
     {#each comments as comment}
+    <tr>
         {#if users} 
         {#each users as user}
            {#if comment.userid === user._id}
-           <span>@User: {user.username}</span>
-           <br>
-           <span>Comment: {comment.commentbody}</span>
-           <br>
-           <br>
+           <td>@User: {user.username}</td>
+           <td>Comment: {comment.commentbody}</td>
             {/if}
         {/each}
         {/if}
+    </tr>
     {/each}
+    </table>
     {/if}
     <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="Comment here" id="commenttext" bind:value="{newCommentBody}" required></textarea>
     <button on:click="{createNewComment}">Create comment</button>
 </div>
+
+<style>
+    table, tr, th {
+        border: solid black 1px;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    td {
+        text-align: left;
+        border: solid black 1px;
+    }
+
+    table {
+        width: 50%;
+        margin: auto;
+    }
+</style>

@@ -38,7 +38,6 @@
     <h1>Welcome {$user.currentUser.username}</h1>
     {/if}
     <table>
-        
           {#if forums} 
             {#each forums as forum}
             <tr>
@@ -48,9 +47,11 @@
                 {#each subforums as subforum}
                 {#if subforum.mainid === forum._id}
                     <nav>
-                       <td> <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
+                    <tr>
+                       <th> <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
                         {subforum._id}
-                    </td> 
+                    </th> 
+                    </tr>
                     </nav>
                     {/if}
                 {/each}
