@@ -11,6 +11,7 @@
     let comments;
     let newCommentBody;
     let users;
+    let post;
     
 
     async function fetchComments() {
@@ -28,6 +29,13 @@
         console.log(users);
     };
 
+    async function fetchPost() {
+        const response = await fetch($baseURL + '/api/posts/' + $postid);
+        const postsArray = await response.json();
+        post = postsArray;
+        console.log(post);
+    };
+
     async function deleteComment(id) {
         const res = await fetch($baseURL + '/api/comment/' + id, {
             method: 'DELETE',
@@ -43,8 +51,7 @@
             } else {
                 toast.push(res.error);
             }
-        
-    }
+    };
 
     async function createNewComment() {
         let newComment = {
@@ -75,8 +82,9 @@
     }
 
     onMount(async () => {
-        fetchComments()
-        fetchUsers()
+        fetchComments();
+        fetchUsers();
+        fetchPost();
     });
 
     function changeId(newid) {
@@ -86,9 +94,13 @@
 </script>
 
 <div>   
-    {#if comments} 
+    {#if comments, post}
     <table>
-        
+    <tr>
+        <td>{#each users as postuser}{#if post.userid === postuser._id}{postuser.username}{/if}{/each}</td>
+        <td>Post text: {post.postbody}</td>
+        <td>edit post skal være her</td>
+    </tr>
     {#each comments as comment}
     <tr>
         {#if users} 

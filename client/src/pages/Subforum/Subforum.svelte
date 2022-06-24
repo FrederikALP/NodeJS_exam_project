@@ -24,15 +24,15 @@
         console.log(users);
     };
 
-    onMount(async () => {
-        fetchPosts();
-        fetchUsers();
-    });
-
     function changeId(newid) {
         postid.set(newid)
         console.log(postid)
 	};
+
+    onMount(async () => {
+        fetchPosts();
+        fetchUsers();
+    });
 
 
 </script>
@@ -50,7 +50,7 @@
                     <Link on:click="{changeId(post._id)}" to="/post/{post._id}">
                     <th>
                 Postname: {post.postheader}
-                 </th>
+                </th>
                 </Link>
                  {#if users}
                  {#each users as user}
@@ -73,6 +73,14 @@
         border: solid black 1px;
         border-collapse: collapse;
         text-align: left;
+    }
+
+    tr {
+        width: 100%;
+    }
+
+    th {
+        width: 100%;
     }
 
     td {
