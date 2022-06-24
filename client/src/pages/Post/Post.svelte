@@ -11,6 +11,7 @@
     let comments;
     let newCommentBody;
     let users;
+    let userIsLoggedIN;
     
 
     async function fetchComments() {
@@ -18,6 +19,9 @@
         const response = await fetch($baseURL + '/api/commentsByPost/' + $postid);
         const commentsArray = await response.json();
         comments = commentsArray;
+        comments.map( comment =>{
+            return comment.editToggle = false;
+        });
         console.log(comments);
     };
 
@@ -28,23 +32,6 @@
         console.log(users);
     };
 
-    async function deleteComment(id) {
-        const res = await fetch($baseURL + '/api/comment/' + id, {
-            method: 'DELETE',
-            })
-            console.log(res.status);
-            
-            const result = await res.json()
-            if (res.status === 200) {
-                toast.push('Comment deleted succesfully')
-                console.log(result);
-                const from = ($location.state && $location.state.from) || "/post/" + postid;
-                navigate(from, { replace: true });
-            } else {
-                toast.push(res.error);
-            }
-        
-    }
 
     async function createNewComment() {
         let newComment = {
@@ -74,6 +61,52 @@
             }
     }
 
+    async function toggleEditComment(comment) {
+
+        comment.editToggle = !comment.editToggle 
+    }
+
+    async function updateComment(id) {
+        let updatedComment = {
+            commentbody: newCommentBody,
+            postid: $postid,
+            userid: $user.currentUser._id
+        };
+        const res = await fetch($baseURL + '/api/comment/' + id, {
+            method: 'PATCH',
+            })
+            console.log(res.status);
+            
+            const result = await res.json()
+            if (res.status === 200) {
+                toast.push('Comment edited succesfully')
+                console.log(result);
+                const from = ($location.state && $location.state.from) || "/post/" + postid;
+                navigate(from, { replace: true });
+            } else {
+                toast.push(res.error);
+            }
+        
+    }
+
+    async function deleteComment(id) {
+        const res = await fetch($baseURL + '/api/comment/' + id, {
+            method: 'DELETE',
+            })
+            console.log(res.status);
+            
+            const result = await res.json()
+            if (res.status === 200) {
+                toast.push('Comment deleted succesfully')
+                console.log(result);
+                const from = ($location.state && $location.state.from) || "/post/" + postid;
+                navigate(from, { replace: true });
+            } else {
+                toast.push(res.error);
+            }
+        
+    }
+
     onMount(async () => {
         fetchComments()
         fetchUsers()
@@ -92,12 +125,22 @@
     {#each comments as comment}
     <tr>
         {#if users} 
-        {#each users as user}
-           {#if comment.userid === user._id}
-           <td>@User: {user.username}</td>
-           <td>Comment: {comment.commentbody}</td>
+        {#each users as user1}
+           {#if comment.userid === user1._id}
+           <td>@User: {user1.username}</td>
+           <td>
+                {#if !comment.editToggle}
+                    Comment: {comment.commentbody}
+                {:else}
+                    <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{comment.commentbody}" id="commenttext" bind:value="{comment.commentbody}"></textarea>
+                    <button on:click="{updateComment(comment._id)}" on:click="{() => comment.editToggle = !comment.editToggle}">save</button>
+                {/if}
+            </td>
+           {#if (comment.userid === $user.currentUser._id)}
            <td><Link on:click="{deleteComment(comment._id)}" to="/deleteComment/{comment._id}"><button>Delete comment</button></Link></td>
-            {/if}
+           <button on:click={() => comment.editToggle = !comment.editToggle}>Edit comment</button>
+           {/if}
+        {/if}
         {/each}
         {/if}
     </tr>

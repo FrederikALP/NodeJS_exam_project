@@ -40,10 +40,10 @@ router.post("/api/comment", async (req, res) => {
 
 //Update comment by id
 router.patch("/api/comment/:id", async (req, res) => {
+    const comment = await Comments.findByIdAndUpdate(req.params.id, req.body);
     try {
-        await Comments.findByIdAndUpdate(req.params.id, req.body);
-        await Comments.bulkSave();
-        res.send('Comment was updated: ', Comments);
+        await comment.save();
+        res.send(comment);
     } catch (error) {
         res.status(500).send(error);
     }

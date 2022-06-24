@@ -16,6 +16,7 @@
 	import Post from "./pages/Post/Post.svelte";
 	import CreateNewPost from "./pages/Post/CreateNewPost.svelte";
 	import DeleteComment from "./pages/Post/Post.svelte";
+	import UpdateComment from "./pages/Post/Post.svelte";
 
 	async function handleLogout() {
 		const response = await fetch($baseURL + '/api/logout');
@@ -49,6 +50,7 @@
 		<Route path="/post/:id" component={Post} />
 		<Route path="/create-new-post" component={CreateNewPost} />
 		<Route path="/deleteComment" component={DeleteComment} />
+		<Route path="/updateComment" component={UpdateComment} />
 		<Route path="/login" component={Login} />
 		<Route path="/register" component={RegisterUser} />
 	</Router>
