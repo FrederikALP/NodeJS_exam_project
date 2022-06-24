@@ -7,6 +7,12 @@ import bcrypt from "bcrypt";
 //Get all users
 router.get("/api/users", async (req, res) => {
     const users = await User.find({});
+	users.map(user => {
+		user.password = "";
+		return user;
+	})
+	
+	console.log(users);
 
     try {
         res.send(users);
