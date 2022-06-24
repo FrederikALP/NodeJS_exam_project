@@ -26,7 +26,7 @@
 
     function changeId(newid) {
         postid.set(newid)
-        console.log(postid)
+        console.log($postid)
 	};
 
     onMount(async () => {

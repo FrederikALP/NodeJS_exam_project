@@ -11,6 +11,7 @@
     let comments;
     let newCommentBody;
     let patchedCommentBody;
+    let patchedPostBody;
     let users;
     let userIsLoggedIN;
     let post;
@@ -35,6 +36,7 @@
     };
 
     async function fetchPost() {
+        console.log($postid);
         const response = await fetch($baseURL + '/api/posts/' + $postid);
         const postsArray = await response.json();
         post = postsArray;
@@ -51,8 +53,7 @@
             if (res.status === 200) {
                 toast.push('Comment deleted succesfully')
                 console.log(result);
-                const from = ($location.state && $location.state.from) || "/post/" + postid;
-                navigate(from, { replace: true });
+                fetchComments();
             } else {
                 toast.push(res.error);
             }
@@ -77,10 +78,11 @@
         
         const result = await res.json()
             if (res.status === 200) {
+                //comments.push(result);
+                //comments = comments;
+                fetchComments()
                 toast.push('Comment created succesfully')
                 console.log(result);
-                const from = ($location.state && $location.state.from) || "/post/" + postid;
-                navigate(from, { replace: true });
             } else {
                 toast.push(res.error);
             }
@@ -108,14 +110,43 @@
             
             const result = await res.json()
             if (res.status === 200) {
+                fetchComments();
                 toast.push('Comment edited succesfully')
                 console.log(result);
-                const from = ($location.state && $location.state.from) || "/post/" + postid;
-                navigate(from, { replace: true });
+
+                //const from = ($location.state && $location.state.from) || "/post/" + postid;
+                //navigate(from, { replace: true });
             } else {
                 toast.push(res.error);
             }
+    }
+
+    async function updatePost(id) {
+ 
+    let updatedPost = {
+        postbody: patchedPostBody
+    };
+    console.log(updatedPost);
+    const res = await fetch($baseURL + '/api/post/' + id, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedPost)
+        })
+        console.log(res.status);
         
+        const result = await res.json()
+        if (res.status === 200) {
+            fetchPost();
+            toast.push('Post edited succesfully')
+            console.log(result);
+
+            //const from = ($location.state && $location.state.from) || "/post/" + postid;
+            //navigate(from, { replace: true });
+        } else {
+            toast.push(res.error);
+        }
     }
 
     onMount(async () => {
@@ -131,13 +162,22 @@
 </script>
 
 <div>   
-    {#if comments, post}
+    {#if comments && post}
     <table>
     <tr>
         {#if users}
         <td>{#each users as postuser}{#if post.userid === postuser._id}{postuser.username}{/if}{/each}</td>
-        <td>Post text: {post.postbody}</td>
-        <td>edit post skal være her</td>
+        <td>
+            {#if !post.editToggle}
+                Comment: {post.postbody}
+            {:else}
+                <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{post.postbody}" id="postbody" bind:value="{patchedPostBody}"></textarea>
+                <button on:click="{updatePost(post._id)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
+            {/if}
+        </td>
+        {#if (post.userid === $user.currentUser._id)}
+        <td><button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button></td>
+        {/if}
         {/if}
     </tr>
     {#each comments as comment}
@@ -155,7 +195,7 @@
                 {/if}
             </td>
            {#if (comment.userid === $user.currentUser._id)}
-           <td><Link on:click="{deleteComment(comment._id)}" to="/deleteComment/{comment._id}"><button>Delete comment</button></Link></td>
+           <td><button on:click="{deleteComment(comment._id)}">Delete comment</button></td>
            <button on:click={() => comment.editToggle = !comment.editToggle}>Edit comment</button>
            {/if}
         {/if}

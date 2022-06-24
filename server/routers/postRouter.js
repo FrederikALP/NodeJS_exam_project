@@ -18,8 +18,8 @@ router.get("/api/posts", async (req, res) => {
 
 //Get post by id with req.body for some reason
 router.get("/api/posts/:id", async (req, res) => {
-    const postid = ObjectId(req.params.id);
-    const posts = await Posts.findOne({ postid }) ;
+    const _id = ObjectId(req.params.id);
+    const posts = await Posts.findOne({ _id }) ;
 
     try {
         res.send(posts);
@@ -53,10 +53,12 @@ router.post("/api/post", async (request, response) => {
 
 //Update post by id
 router.patch("/api/post/:id", async (req, res) => {
+    let _id = req.params.id;
     try {
         await Posts.findByIdAndUpdate(req.params.id, req.body);
-        await Posts.bulkSave();
-        res.send('Post was updated: ', Posts);
+        let updatedPost = await Posts.findOne({_id});
+        console.log(updatedPost);
+        res.send(updatedPost);
     } catch (error) {
         res.status(500).send(error);
     }

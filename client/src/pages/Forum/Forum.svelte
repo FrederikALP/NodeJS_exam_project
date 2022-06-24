@@ -23,7 +23,7 @@
 
     function changeId(newid) {
         subid.set(newid)
-        console.log(subid)
+        console.log($subid)
 	};
 
     onMount(async () => {
