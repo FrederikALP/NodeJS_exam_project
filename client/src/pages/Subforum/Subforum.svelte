@@ -9,6 +9,7 @@
 
     let posts;
     let users;
+    let subforums;
 
     async function fetchPosts() {
         const response = await fetch($baseURL + '/api/postsBySubforum/' + $subid);
@@ -24,6 +25,13 @@
         console.log(users);
     };
 
+    async function fetchSubForums() {
+        const response = await fetch($baseURL + '/api/subforums');
+        const forumsArray = await response.json();
+        subforums = forumsArray;
+        console.log(subforums);
+    };
+
     function changeId(newid) {
         postid.set(newid)
         console.log($postid)
@@ -32,9 +40,9 @@
     onMount(async () => {
         fetchPosts();
         fetchUsers();
+        fetchSubForums();
+        console.log($subid);
     });
-
-
 </script>
 
 <div>
@@ -43,7 +51,14 @@
     <h1>Welcome {$user.currentUser.username}</h1>
     {/if}
     <table>
-        {#if posts} 
+        {#if posts && users && subforums}
+        {#each subforums as subforum}
+        <tr>
+            {#if subforum._id === $subid}
+            <td>Subforumname: {subforum.subheader}</td>
+            {/if}
+        </tr>
+        {/each}
         {#each posts as post}
             <nav>
                 <tr>
@@ -52,7 +67,6 @@
                 Postname: {post.postheader}
                 </th>
                 </Link>
-                 {#if users}
                  {#each users as user}
                  {#if post.userid === user._id}
                  <th>
@@ -60,7 +74,6 @@
                 </th>
                 {/if}
                 {/each}
-                {/if}
             </tr>
             </nav>
         {/each}
