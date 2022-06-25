@@ -29,8 +29,9 @@
 		console.log(result);
         
         if (result.loggedIn === false) {
-            user.set(result.loggedIn = false);
-			localStorage.setItem('user',(null))
+            user.set(loggedIn = false);
+			//localStorage.setItem('user',(loggedIn = false))
+			localStorage.clear();
 			console.log(localStorage.getItem("user"));
         }
 	}
