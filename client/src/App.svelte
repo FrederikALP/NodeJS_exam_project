@@ -30,13 +30,15 @@
         
         if (result.loggedIn === false) {
             user.set(result.loggedIn = false);
-			localStorage.setItem('user',(null))
+			localStorage.clear();
 			console.log(localStorage.getItem("user"));
         }
 	}
+
 </script>
 
 <main>
+	
 	<SvelteToast options = {options}/>
 	<h1>Hørehæmmedes tilflugtssted</h1>
 	<Router>
