@@ -20,7 +20,13 @@ import rateLimit from "express-rate-limit";
 
 //Helmet
 import helmet from "helmet";
-app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+      "img-src" : ["'self'", "data: https:"]
+    }
+  })
+);
+//"img-src" : ["'self'", "data: https:"] is generally to be avoided but for the sake of having an image from outside sources it is used.
 
 //Body parser
 import bodyParser from "body-parser";
