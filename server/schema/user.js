@@ -6,7 +6,9 @@ const Users = new mongoose.Schema(
 		password: { type: String, required: true },
         email: { type: String, required: true , unique: true},
         postcount: { type: Number, required: false },
-        role: { type: Number, required: false }
+        role: { type: Number, required: false },
+		avatar: { type: String, required: false },
+		description: { type: String, required: false, maxlength: 200 }
 	},
 	{ collection: 'users' }
 )

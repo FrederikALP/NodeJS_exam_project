@@ -51,7 +51,7 @@
 					<Link to="/register">Register</Link>
 				{/if}
 				{#if ($user.loggedIn)}
-					<Link to="/profile">WIP Profile button {$user.currentUser.username}</Link>
+					<Link to="/profile/{$user.currentUser._id}">WIP Profile button {$user.currentUser.username}</Link>
 					<button on:click="{handleLogout}">Logout</button>
 				{/if}
 			</nav>
@@ -66,12 +66,12 @@
 		<PrivateRoute path="/create-new-post" let:location>
 			<Login/>
 		</PrivateRoute>
-		<PrivateRoute path="/profile" let:location>
+		<PrivateRoute path="/profile/:id" let:location>
 			<Login/>
 		</PrivateRoute>
 		{:else}
 			<Route path="/create-new-post" component={CreateNewPost}/>
-			<Route path="/profile" component={Profile}/>
+			<Route path="/profile/:id" component={Profile}/>
 		{/if}
 
 		<Route path="/deleteComment" component={DeleteComment} />
@@ -94,11 +94,7 @@
 		margin: 0 auto;
 	}
 
-	h1 {
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+
 
 	@media (min-width: 640px) {
 		main {

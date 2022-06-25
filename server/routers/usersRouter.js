@@ -21,17 +21,29 @@ router.get("/api/users", async (req, res) => {
 
 //Get user by id
 router.get("/api/users/:id", async (req, res) => {
-	const _id = req.params.id;
+	const _id = ObjectId(req.params.id);
     const users = await Users.findOne({ _id });
-	users.map(user => {
-		user.password = "";
-		return user;
-	})
+	users.password = undefined;
     try {
         res.send(users);
     } catch (error) {
         res.status(500).send(error);
     }
+});
+
+router.patch("/api/users/:id", async (req, res) => {
+	if (!req.session.loggedIn) {
+	return res.status(500).send('User not logged in');
+	}
+	let _id = req.params.id;
+	try {
+		await Users.findByIdAndUpdate(req.params.id, req.body);
+		let updatedUser = await Users.findOne({_id});
+		console.log(updatedUser);
+		res.send(updatedUser);
+	} catch (error) {
+		res.status(500).send(error);
+	}
 });
 
 router.post('/api/login', async (req, res) => {

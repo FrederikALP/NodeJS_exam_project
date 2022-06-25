@@ -102,11 +102,6 @@
             }
     }
 
-    async function toggleEditComment(comment) {
-
-        comment.editToggle = !comment.editToggle 
-    }
-
     async function updateComment(id) {
  
         let updatedComment = {
@@ -238,23 +233,13 @@
 </div>
 
 <style>
-    h1 {
-        color: white;
-    }
-
-    h2 {
-
-    }
 
     h3 {
         color: white;
         margin: 0px;
     }
 
-    h4 {
-        color: rgb(60, 57, 57);
-        margin: 0px;
-    }
+
 
     .fullpage {
         width: 50%;
