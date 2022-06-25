@@ -14,7 +14,6 @@
     let patchedCommentBody;
     let patchedPostBody;
     let users;
-    let userIsLoggedIN;
     let post;
     const params = useParams();
 

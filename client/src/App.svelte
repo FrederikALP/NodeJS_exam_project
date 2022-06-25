@@ -16,6 +16,7 @@
 	import CreateNewPost from "./pages/Post/CreateNewPost.svelte";
 	import DeleteComment from "./pages/Post/Post.svelte";
 	import UpdateComment from "./pages/Post/Post.svelte";
+	import Profile from "./pages/Profile/Profile.svelte";
 
 
 	const socket = io("ws://localhost:3000");
