@@ -43,16 +43,16 @@
 	<Router>
 		<div class="navdiv">
 			<nav>
-
-				<Link to="/">Home</Link>
-				<Link to="/forum">Forum</Link>
+				<img class="navlogo" src="/favicon.png" alt="Didnt load">
+				<Link to="/"><button class="navbutton">Home</button></Link>
+				<Link to="/forum"><button class="navbutton">Forum</button></Link>
 				{#if (!$user.loggedIn)}
-					<Link to="/login">Login</Link>
-					<Link to="/register">Register</Link>
+					<Link to="/login"><button class="navbutton">Login</button></Link>
+					<Link to="/register"><button class="navbutton">Register</button></Link>
 				{/if}
 				{#if ($user.loggedIn)}
-					<Link to="/profile/{$user.currentUser._id}">WIP Profile button {$user.currentUser.username}</Link>
-					<button on:click="{handleLogout}">Logout</button>
+					<Link to="/profile"><button class="navbutton">WIP Profile button {$user.currentUser.username}</button></Link>
+					<button class="navbutton" on:click="{handleLogout}">Logout</button>
 				{/if}
 			</nav>
 		</div>
@@ -95,6 +95,21 @@
 	}
 
 
+
+	.navdiv {
+
+	}
+
+	.navlogo {
+		width: 46px;
+		height: 46px;
+		overflow: hidden;
+	}
+
+	.navbutton {
+		height: 46px;
+		overflow: hidden;
+	}
 
 	@media (min-width: 640px) {
 		main {
