@@ -55,7 +55,7 @@ async function fetchUser() {
 </script>
 
 {#if profileUser}
-<div class="userProfile">
+<div class="user-profile">
     <div class="userInformation">
         <div class="avatarDiv">
         
@@ -100,7 +100,7 @@ h1 {
     padding: 10px;
 }
 
-.userProfile {
+.user-profile {
     width: 50%;
     margin: auto;
     text-align: left;
@@ -128,13 +128,6 @@ h1 {
 .userName-Email {
     width: 40%;
 }
-
-.userProfile {
-        width: 50%;
-        margin: auto;
-        text-align: left;
-        word-wrap: break-word;
-    }
 
 .userDescription {
     background-color: lightgrey;
