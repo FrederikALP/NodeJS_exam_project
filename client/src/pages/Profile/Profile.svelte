@@ -10,7 +10,6 @@ const params = useParams();
 let profileUser;
 let avatar;
 let avatarUpdate;
-let description;
 
 async function fetchUser() {
         const response = await fetch($baseURL + '/api/users/' + $params.id);
@@ -62,7 +61,7 @@ async function fetchUser() {
         
          
            {#if profileUser.avatar}
-           <img class="avatar" src="{profileUser.avatar}" alt=""  />
+           <img class="avatar" src="{profileUser.avatar}" alt=""/>
            {:else}
              <p>Upload profile picture</p>
              <input id="avatarUrl" placeholder="Image url" bind:value={avatarUpdate}>
@@ -72,8 +71,8 @@ async function fetchUser() {
         </div>
         <div class="userName-Email">
             {#if user}
-                 <p>@{profileUser.username}</p>
-                 <p>{profileUser.email}</p>
+                 <p>Username: @{profileUser.username}</p>
+                 <p>Email: {profileUser.email}</p>
             {/if}
         </div>
         <div class="postCount">
@@ -81,9 +80,9 @@ async function fetchUser() {
         </div>
     </div>
     <div class="userDescription">
-        {#if description}
+        {#if profileUser.description}
              <h1>User description</h1>
-             {profileUser.description}
+             <span class="descriptionText">{profileUser.description}</span>
         {/if}
 
     </div>
@@ -94,6 +93,12 @@ async function fetchUser() {
 
 <style>
 
+h1 {
+    font-size: 20px;
+    padding-bottom: 15px;
+    margin: auto;
+}
+
 .userProfile {
     width: 50%;
     margin: auto;
@@ -102,6 +107,7 @@ async function fetchUser() {
 }
 
 .userInformation {
+    background-color: lightgray;
     border: solid black 1px;
     border-radius: 0.25em;
     display: flex;
@@ -114,9 +120,8 @@ async function fetchUser() {
 
 .avatar {
     padding: 3px;
-    width: 100%;
-    height: 100%;
-
+    width: 95%;
+    height: 95%;
 }
 
 .userName-Email {
@@ -130,4 +135,20 @@ async function fetchUser() {
         word-wrap: break-word;
     }
 
+.userDescription {
+    background-color: lightgrey;
+    border: solid black 1px;
+    border-radius: 0.25em;
+    padding-bottom: auto;
+    padding-left: 10px;
+}
+
+.descriptionText {
+    padding-bottom: 15px;
+    padding-left: 10px;
+    border: solid black 1px;
+    border-radius: 0.25em;
+    text-align: left;
+    word-wrap: break-word;
+}
 </style>

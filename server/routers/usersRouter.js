@@ -32,9 +32,9 @@ router.get("/api/users/:id", async (req, res) => {
 });
 
 router.patch("/api/users/:id", async (req, res) => {
-	if (!req.session.loggedIn) {
-	return res.status(500).send('User not logged in');
-	}
+	//if (!req.session.loggedIn) {
+	//return res.status(500).send('User not logged in');
+	//}
 	let _id = req.params.id;
 	try {
 		await Users.findByIdAndUpdate(req.params.id, req.body);
