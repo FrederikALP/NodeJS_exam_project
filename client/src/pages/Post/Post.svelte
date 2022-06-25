@@ -19,13 +19,19 @@
     const params = useParams();
 
     const socket = io("ws://localhost:3000");
-
         socket.on("comment", (data) => {
         console.log('hsbgfjhdfgdfg')
         comments = [...comments, data]
+    }),
+        socket.on("updatecomment", (data) => {
+        console.log('hsbgfjhdfgdfg')
+        fetchComments();
+    }),
+    socket.on("deletecomment", (data) => {
+        console.log('hsbgfjhdfgdfg')
+        fetchComments();
     });
 
-    
 
     async function fetchComments() {
         console.log($postid);
@@ -119,7 +125,7 @@
             
             const result = await res.json()
             if (res.status === 200) {
-                fetchComments();
+                //fetchComments();
                 toast.push('Comment edited succesfully')
                 console.log(result);
 

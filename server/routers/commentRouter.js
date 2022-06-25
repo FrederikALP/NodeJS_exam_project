@@ -1,7 +1,6 @@
 import { Router } from "express";
 const router = Router();
 import Comments from "../schema/comments.js";
-import Posts from "../schema/posts.js";
 import { getIO } from "../socketIO.js";
  
 //Get all Comments
@@ -30,6 +29,9 @@ router.get("/api/commentsByPost/:id", async (req, res) => {
 
 //Create comment on post id
 router.post("/api/comment", async (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.status(500).send('User not logged in');
+    }
     const comment = new Comments(req.body.comment);
     try {
         await comment.save();
@@ -44,11 +46,16 @@ router.post("/api/comment", async (req, res) => {
 
 //Update comment by id
 router.patch("/api/comment/:id", async (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.status(500).send('User not logged in');
+    }
     let _id = req.params.id;
     try {
         await Comments.findByIdAndUpdate(req.params.id, req.body);
         let updatedcomment = await Comments.findOne({_id});
         console.log(updatedcomment);
+        const io = getIO();
+        io.emit('updatecomment', updatedcomment);
         res.send(updatedcomment);
     } catch (error) {
         res.status(500).send(error);
@@ -57,8 +64,13 @@ router.patch("/api/comment/:id", async (req, res) => {
 
 //Delete comment by id
 router.delete("/api/comment/:id", async (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.status(500).send('User not logged in');
+    }
     try {
         const comment = await Comments.findByIdAndDelete(req.params.id);
+        const io = getIO();
+        io.emit('deletecomment', comment);
         res.status(200).send(comment);
     } catch (error) {
         res.status(500).send(error);

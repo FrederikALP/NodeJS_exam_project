@@ -1,10 +1,7 @@
 import { Router } from "express";
 import { ObjectId } from "mongodb";
 const router = Router();
-import mongoose from "mongoose";
-
 import Posts from "../schema/posts.js";
-import SubForum from "../schema/subForum.js";
  
 //Get all posts
 router.get("/api/posts", async (req, res) => {
@@ -42,6 +39,9 @@ router.get("/api/postsBySubforum/:id", async (req, res) => {
 
 //Create post
 router.post("/api/post", async (request, response) => {
+    if (!req.session.loggedIn) {
+        return res.status(500).send('User not logged in');
+    }
     const post = new Posts(request.body.post);
     try {
         await post.save();
@@ -53,6 +53,9 @@ router.post("/api/post", async (request, response) => {
 
 //Update post by id
 router.patch("/api/post/:id", async (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.status(500).send('User not logged in');
+    }
     let _id = req.params.id;
     try {
         await Posts.findByIdAndUpdate(req.params.id, req.body);
@@ -66,6 +69,9 @@ router.patch("/api/post/:id", async (req, res) => {
 
 //Delete post by id
 router.delete("/api/post/:id", async (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.status(500).send('User not logged in');
+    }
     try {
         const post = await Posts.findByIdAndDelete(req.params.id);
         if (!post) res.status(404).send('No post found');
