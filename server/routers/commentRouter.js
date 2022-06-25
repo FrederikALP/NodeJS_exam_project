@@ -2,7 +2,7 @@ import { Router } from "express";
 const router = Router();
 import Comments from "../schema/comments.js";
 import Posts from "../schema/posts.js";
-import { init, getIO } from "../socketIO.js";
+import { getIO } from "../socketIO.js";
  
 //Get all Comments
 router.get("/api/comments", async (req, res) => {

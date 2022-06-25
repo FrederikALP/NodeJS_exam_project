@@ -1,7 +1,6 @@
 <script>
 	import { Link, Router, Route } from "svelte-navigator";
-	import { baseURL } from "./stores/generalStore.js";
-	import { user } from "./stores/generalStore";
+	import { baseURL, user } from "./stores/generalStore.js";
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	const options = {  }; //Toast options
 	import PrivateRoute from "./components/PrivateRoute.svelte";
@@ -27,9 +26,12 @@
 	async function handleLogout() {
 		const response = await fetch($baseURL + '/api/logout');
 		const result = await response.json();
+		console.log(result);
         
         if (result.loggedIn === false) {
             user.set(result.loggedIn = false);
+			localStorage.setItem('user',(null))
+			console.log(localStorage.getItem("user"));
         }
 	}
 </script>
@@ -46,7 +48,7 @@
 				<Link to="/register">Register</Link>
 			{/if}
 			{#if ($user.loggedIn)}
-				<Link on:click="{handleLogout}" to="/">Logout</Link>
+				<button on:click="{handleLogout}">Logout</button>
 			{/if}
 		</nav>
 

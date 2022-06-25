@@ -24,11 +24,12 @@
                 username,
                 password
             })
-        }).then((res) => res.json())
-
-        if (response.loggedIn) {
-
-            user.set(response);
+        })
+        
+        const result = await response.json()
+            if (result.loggedIn) {
+            user.set(result);
+            localStorage.setItem('user',JSON.stringify(result))
             const from = ($location.state && $location.state.from) || "/";
             navigate(from, { replace: true });
         } else {

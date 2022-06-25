@@ -80,8 +80,9 @@ router.get("/api/logout", (req, res) => {
     if (req.session.loggedIn) {
         req.session.loggedIn = false;
         req.session.userID = undefined;
-        return res.send({ loggedIn: false});
+        return res.send({ loggedIn: false });
     }
+	res.send({ loggedIn:false });
 });
 
 export default router;

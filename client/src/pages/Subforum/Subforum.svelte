@@ -1,5 +1,5 @@
 <script>
-    import { Link, Router, Route } from "svelte-navigator";
+    import { Link, Router, Route, useParams } from "svelte-navigator";
     import { useNavigate, useLocation } from "svelte-navigator";
 
     import { onMount } from 'svelte';
@@ -11,9 +11,10 @@
     let users;
     let subforums;
     const subforumid = localStorage.getItem("persistentsubid");
+    const params = useParams();
 
     async function fetchPosts() {
-        const response = await fetch($baseURL + '/api/postsBySubforum/' + subforumid);
+        const response = await fetch($baseURL + '/api/postsBySubforum/' + $params.id);
         const postsArray = await response.json();
         posts = postsArray;
         console.log(posts);
