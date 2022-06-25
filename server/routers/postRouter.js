@@ -38,16 +38,16 @@ router.get("/api/postsBySubforum/:id", async (req, res) => {
 });
 
 //Create post
-router.post("/api/post", async (request, response) => {
+router.post("/api/post", async (req, res) => {
     if (!req.session.loggedIn) {
         return res.status(500).send('User not logged in');
     }
-    const post = new Posts(request.body.post);
+    const post = new Posts(req.body.post);
     try {
         await post.save();
-        response.send(post);
+        res.send(post);
       } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
       }
 });
 

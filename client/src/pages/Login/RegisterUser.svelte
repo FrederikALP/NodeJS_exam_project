@@ -5,24 +5,25 @@
 
     const navigate = useNavigate();
     const location = useLocation();
+    
+    let newUsername;
+    let newPassword;
+    let newEmail;
 
     const form = document.getElementById('register');
     
     async function registerUser(event) {
         event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const email = document.getElementById('email').value;
-
+        
         const result = await fetch($baseURL + '/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username,
-                password,
-                email
+                username: newUsername,
+                password: newPassword,
+                email: newEmail
             })
         }).then((res) => res.json())
 
@@ -40,9 +41,9 @@
 <div class="register">
     <h1>Register new User</h1>
     <form on:submit|preventDefault={registerUser}>
-        <input type="text" name="username" autocomplete="off" placeholder="Username" id="username" required>
-        <input type="password" name="password" autocomplete="off" placeholder="Password" id="password" required>
-        <input type="email" name="email" autocomplete="off" placeholder="Email" id="email" required>
+        <input type="text" name="username" autocomplete="off" placeholder="Username" id="username" bind:value="{newUsername}" required>
+        <input type="password" name="password" autocomplete="off" placeholder="Password" id="password" bind:value="{newPassword}" required>
+        <input type="email" name="email" autocomplete="off" placeholder="Email" id="email" bind:value="{newEmail}" required>
         <input type="submit" value="Submit form">
     </form>
 </div>
