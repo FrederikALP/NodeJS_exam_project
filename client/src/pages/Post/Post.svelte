@@ -161,69 +161,113 @@
 	};
 </script>
 
-<div>   
+<div class="fullpage">   
     {#if comments && post && users}
-    <table>
-    <tr>
-        <td>Threadheader: {post.postheader}</td>
-    </tr>
-    <tr>
-        <td>{#each users as postuser}{#if post.userid === postuser._id}Threadstarter: {postuser.username}{/if}{/each}</td>
-        <td>
+    <div class="postheader">
+        <h3>Threadheader: {post.postheader}</h3>
+    </div>
+    <div class="postandcomment">
+        {#each users as postuser}
+        {#if post.userid === postuser._id}
+            <div class="postuser">Threadstarter: {postuser.username}</div>
+        {/if}
+        {/each}
+        <div class="postbody">
             {#if !post.editToggle}
                 Postbody: {post.postbody}
             {:else}
                 <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{post.postbody}" id="postbody" bind:value="{patchedPostBody}"></textarea>
                 <button on:click="{updatePost(post._id)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
             {/if}
-        </td>
+        </div>
         {#if (post.userid === $user.currentUser._id)}
-        <td><button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button></td>
+        <button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button>
         {/if}
-    </tr>
+    </div>
     {#each comments as comment}
-    <tr>
+    <div class="postandcomment">
         {#if users} 
         {#each users as user1}
-           {#if comment.userid === user1._id}
-           <td>@User: {user1.username}</td>
-           <td>
-                {#if !comment.editToggle}
-                    Comment: {comment.commentbody}
-                {:else}
-                    <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{comment.commentbody}" id="commenttext" bind:value="{patchedCommentBody}"></textarea>
-                    <button on:click="{updateComment(comment._id)}" on:click="{() => comment.editToggle = !comment.editToggle}">save</button>
-                {/if}
-            </td>
+        {#if comment.userid === user1._id}
+        <div class="postuser">
+        @User: {user1.username}
+        </div>
+        <div class="postbody">
+            {#if !comment.editToggle}
+            Comment: {comment.commentbody}
+            {:else}
+            <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{comment.commentbody}" id="commenttext" bind:value="{patchedCommentBody}"></textarea>
+            <button on:click="{updateComment(comment._id)}" on:click="{() => comment.editToggle = !comment.editToggle}">save</button>
+            {/if}
+        </div>
            {#if (comment.userid === $user.currentUser._id)}
-           <td><button on:click="{deleteComment(comment._id)}">Delete comment</button></td>
+           <div class="deleteeditbutton">
+           <button on:click="{deleteComment(comment._id)}">Delete comment</button>
            <button on:click={() => comment.editToggle = !comment.editToggle}>Edit comment</button>
+            </div>
            {/if}
         {/if}
         {/each}
         {/if}
-    </tr>
+    </div>
     {/each}
-    </table>
     {/if}
     <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="Comment here" id="commenttext" bind:value="{newCommentBody}" required></textarea>
     <button on:click="{createNewComment}">Create comment</button>
 </div>
 
 <style>
-    table, tr, th {
-        border: solid black 1px;
-        border-collapse: collapse;
-        text-align: left;
+    h1 {
+        color: white;
     }
 
-    td {
-        text-align: left;
-        border: solid black 1px;
+    h2 {
+
     }
 
-    table {
+    h3 {
+        color: white;
+        margin: 0px;
+    }
+
+    h4 {
+        color: rgb(60, 57, 57);
+        margin: 0px;
+    }
+
+    .fullpage {
         width: 50%;
         margin: auto;
+        text-align: left
+    }
+
+    .postheader {
+        border: solid black 1px;
+        border-collapse: collapse;
+        margin-top: 40px;
+        border-radius: 0.25em;
+        background-color: grey;
+    }
+
+    .postandcomment {
+        border: solid black 1px;
+        border-radius: 0.25em;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        background-color: rgb(190, 190, 190);
+    }
+
+    .postuser {        
+        width: 20%;
+        background-color: rgb(154, 154, 154);
+    }
+
+    .postbody {
+        width: 60%;
+    }
+
+    .deleteeditbutton {
+        width: 20%;
     }
 </style>
