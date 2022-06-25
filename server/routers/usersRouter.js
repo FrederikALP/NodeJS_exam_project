@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { ObjectId } from "mongodb";
 const router = Router();
-import User from "../schema/user.js";
+import Users from "../schema/user.js";
 import bcrypt from "bcrypt";
 
 
 //Get all users
 router.get("/api/users", async (req, res) => {
-    const users = await User.find({});
+    const users = await Users.find({});
 	users.map(user => {
 		user.password = "";
 		return user;
@@ -21,8 +21,8 @@ router.get("/api/users", async (req, res) => {
 
 //Get user by id
 router.get("/api/users/:id", async (req, res) => {
-	const _id = ObjectId(req.params.id);
-    const users = await User.findOne({ _id });
+	const _id = req.params.id;
+    const users = await Users.findOne({ _id });
 	users.map(user => {
 		user.password = "";
 		return user;
@@ -36,7 +36,7 @@ router.get("/api/users/:id", async (req, res) => {
 
 router.post('/api/login', async (req, res) => {
 	const { username, password } = req.body;
-	const user = await User.findOne({ username }).lean();
+	const user = await Users.findOne({ username }).lean();
 
 	if (!user) {
 		return res.send({ status: 'error', error: 'Invalid username/password' });
@@ -60,7 +60,7 @@ router.post('/api/register', async (req, res) => {
 	const password = await bcrypt.hash(plainTextPassword, 10);
 
 	try {
-		const response = await User.create({
+		const response = await Users.create({
 			username,
 			password,
             email
