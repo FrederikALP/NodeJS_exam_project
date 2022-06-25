@@ -54,7 +54,15 @@
 		<Route path="/forum" component={Forum} />
 		<Route path="/subforum/:id" component={Subforum} />
 		<Route path="/post/:id" component={Post} />
-		<Route path="/create-new-post" component={CreateNewPost} />
+		
+		{#if (!$user.loggedIn)}
+		<PrivateRoute path="/create-new-post" let:location>
+			<Login/>
+		</PrivateRoute>
+		{:else}
+			<Route path="/create-new-post" component={CreateNewPost}/>
+		{/if}
+
 		<Route path="/deleteComment" component={DeleteComment} />
 		<Route path="/updateComment" component={UpdateComment} />
 		<Route path="/login" component={Login} />
