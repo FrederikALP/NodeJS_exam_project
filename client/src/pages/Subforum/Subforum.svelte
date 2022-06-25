@@ -53,7 +53,7 @@
     <div class="forumcontent">
         {#if posts && users && subforums}
         {#each subforums as subforum}
-        {#if subforum._id === $subid}
+        {#if subforum._id == subforumid}
         <div class="forumsubheader">
             <h3>Subforumname: {subforum.subheader}</h3>
         </div>

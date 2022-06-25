@@ -180,8 +180,10 @@
                 <button on:click="{updatePost(post._id)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
             {/if}
         </div>
-        {#if (post.userid === $user.currentUser._id)}
-        <button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button>
+        {#if ($user.loggedIn)}
+            {#if (post.userid === $user.currentUser._id)}
+            <button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button>
+            {/if}
         {/if}
     </div>
     {#each comments as comment}
@@ -200,11 +202,13 @@
             <button on:click="{updateComment(comment._id)}" on:click="{() => comment.editToggle = !comment.editToggle}">save</button>
             {/if}
         </div>
-           {#if (comment.userid === $user.currentUser._id)}
-           <div class="deleteeditbutton">
-           <button on:click="{deleteComment(comment._id)}">Delete comment</button>
-           <button on:click={() => comment.editToggle = !comment.editToggle}>Edit comment</button>
-            </div>
+        {#if ($user.loggedIn)}
+            {#if (comment.userid === $user.currentUser._id)}
+            <div class="deleteeditbutton">
+            <button on:click="{deleteComment(comment._id)}">Delete comment</button>
+            <button on:click={() => comment.editToggle = !comment.editToggle}>Edit comment</button>
+                </div>
+            {/if}
            {/if}
         {/if}
         {/each}
@@ -212,8 +216,10 @@
     </div>
     {/each}
     {/if}
+    {#if ($user.loggedIn)}
     <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="Comment here" id="commenttext" bind:value="{newCommentBody}" required></textarea>
     <button on:click="{createNewComment}">Create comment</button>
+    {/if}
 </div>
 
 <style>
