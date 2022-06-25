@@ -62,12 +62,20 @@ async function createNewPost() {
 
 <div class="new-post">
     {#if ($user.loggedIn)}
-    <h1>Welcome user {$user.currentUser.username} userid: {$user.currentUser._id}</h1>
-    <h1>Welcome {$user.currentUser._id}</h1>
-
-    <h1>New post</h1>
-        <input type="text" name="postheader" autocomplete="off" placeholder="Post Title" id="header" bind:value="{newheader}" required>
-        <input type="text" name="postbody" autocomplete="off" placeholder="Text" id="posttext" bind:value="{newbody}" required>  
-        <button on:click={createNewPost} to="/post/{idforredirect}">submitform</button>
+    <h1>Create a new post</h1>
+        <input class="titleinput" type="text" name="postheader" autocomplete="off" placeholder="Post Title" id="header" bind:value="{newheader}" required>
+        <input class="bodyinput" type="text" name="postbody" autocomplete="off" placeholder="Text" id="posttext" bind:value="{newbody}" required>  
+        <button on:click={createNewPost} to="/post/{idforredirect}">Submit new Post</button>
     {/if}
 </div>
+
+<style>
+    .titleinput {
+        width: 250px;
+        
+    }
+
+    .bodyinput {
+        width: 400px;
+    }
+</style>

@@ -38,21 +38,23 @@
 </script>
 
 <main>
-	
 	<SvelteToast options = {options}/>
-	<h1>Hørehæmmedes tilflugtssted</h1>
 	<Router>
-		<nav>
-			<Link to="/">Home</Link>
-			<Link to="/forum">Forum</Link>
-			{#if (!$user.loggedIn)}
-				<Link to="/login">Login</Link>
-				<Link to="/register">Register</Link>
-			{/if}
-			{#if ($user.loggedIn)}
-				<button on:click="{handleLogout}">Logout</button>
-			{/if}
-		</nav>
+		<div class="navdiv">
+			<nav>
+
+				<Link to="/">Home</Link>
+				<Link to="/forum">Forum</Link>
+				{#if (!$user.loggedIn)}
+					<Link to="/login">Login</Link>
+					<Link to="/register">Register</Link>
+				{/if}
+				{#if ($user.loggedIn)}
+					<Link to="/profile">WIP Profile button {$user.currentUser.username}</Link>
+					<button on:click="{handleLogout}">Logout</button>
+				{/if}
+			</nav>
+		</div>
 
 		<Route path="/" component={Frontpage} />
 		<Route path="/forum" component={Forum} />

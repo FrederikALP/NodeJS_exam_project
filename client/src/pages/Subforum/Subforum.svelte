@@ -48,9 +48,6 @@
 
 <div class="fullpage">
     <Link to="/create-new-post"><button>Create post</button></Link>
-    {#if ($user.loggedIn)}
-    <h1>Welcome {$user.currentUser.username}</h1>
-    {/if}
     <div class="forumcontent">
         {#if posts && users && subforums}
         {#each subforums as subforum}

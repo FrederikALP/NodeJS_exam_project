@@ -33,13 +33,9 @@
     });
 </script>
 
-{#if ($user.loggedIn)}
-<h1>Welcome {$user.currentUser.username}</h1>
-{/if}
-
 <div class="fullpage">
     <div class="header">
-    <h1>Forum</h1>
+    <h1>Hørehæmmedes tilflugtssted</h1>
 </div>
     <div class="forumcontent">
         {#if forums} 
