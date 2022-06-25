@@ -4,17 +4,26 @@
     import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
     import { toast } from "@zerodevx/svelte-toast";
     import { useNavigate, useLocation } from "svelte-navigator";
+    import { io } from "socket.io-client";
 
     const navigate = useNavigate();
     const location = useLocation();
 
-    let comments;
+    let comments = [];
     let newCommentBody;
     let patchedCommentBody;
     let patchedPostBody;
     let users;
     let userIsLoggedIN;
     let post;
+
+    const socket = io("ws://localhost:3000");
+
+    socket.on("comment", (data) => {
+    console.log('hsbgfjhdfgdfg')
+    comments = [...comments, data]
+  });
+
     
 
     async function fetchComments() {
@@ -80,7 +89,6 @@
             if (res.status === 200) {
                 //comments.push(result);
                 //comments = comments;
-                fetchComments()
                 toast.push('Comment created succesfully')
                 console.log(result);
             } else {
@@ -153,6 +161,7 @@
         fetchComments();
         fetchUsers();
         fetchPost();
+        socket.connect()
     });
 
     function changeId(newid) {

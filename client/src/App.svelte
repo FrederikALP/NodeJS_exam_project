@@ -6,10 +6,10 @@
 	const options = {  }; //Toast options
 	import PrivateRoute from "./components/PrivateRoute.svelte";
 	import RegisterUser from "./pages/Login/RegisterUser.svelte";
-	import Login from "./pages/Login/Login.svelte"
+	import Login from "./pages/Login/Login.svelte";
+	import { io } from "socket.io-client";
 
-
-
+	//Pageimport
 	import Frontpage from "./pages/Frontpage/Frontpage.svelte";
 	import Forum from "./pages/Forum/Forum.svelte";
 	import Subforum from "./pages/Subforum/Subforum.svelte";
@@ -17,6 +17,12 @@
 	import CreateNewPost from "./pages/Post/CreateNewPost.svelte";
 	import DeleteComment from "./pages/Post/Post.svelte";
 	import UpdateComment from "./pages/Post/Post.svelte";
+
+
+	const socket = io("ws://localhost:3000");
+  	socket.on("connect", (x) => {
+    console.log("Connected to socket");
+  	});
 
 	async function handleLogout() {
 		const response = await fetch($baseURL + '/api/logout');

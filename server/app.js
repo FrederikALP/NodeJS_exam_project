@@ -67,8 +67,20 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve("../client/public/index.html"));
 });
 
+import http from "http";
+const server = http.createServer(app);
+
+//Socket.io
+import {init} from './socketIO.js';
+
+const io = init(server)
+
+io.on("connection", (socket) => {
+  console.log(socket.id)
+});
+
 //Port
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log("Starting server on port:", PORT);
 });
