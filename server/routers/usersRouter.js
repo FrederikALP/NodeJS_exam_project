@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { ObjectId } from "mongodb";
 const router = Router();
 import User from "../schema/user.js";
 import bcrypt from "bcrypt";
@@ -20,7 +21,7 @@ router.get("/api/users", async (req, res) => {
 
 //Get user by id
 router.get("/api/users/:id", async (req, res) => {
-	const _id = req.params.id;
+	const _id = ObjectId(req.params.id);
     const users = await User.findOne({ _id });
 	users.map(user => {
 		user.password = "";
