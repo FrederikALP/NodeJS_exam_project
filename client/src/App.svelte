@@ -67,6 +67,7 @@
 		</PrivateRoute>
 		{:else}
 			<Route path="/create-new-post" component={CreateNewPost}/>
+			<Route path="profile" component={Profile}/>
 		{/if}
 
 		<Route path="/deleteComment" component={DeleteComment} />
