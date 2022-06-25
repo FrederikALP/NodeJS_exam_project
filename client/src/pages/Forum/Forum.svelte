@@ -49,9 +49,9 @@
             {#if subforum.mainid === forum._id}
             <div class="subforum">
                 <nav>
-                    <h4> <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">{subforum.subheader}</Link>
-                        {subforum._id}
-                    </h4> 
+                     <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">
+                        <h4>{subforum.subheader}</h4>
+                    </Link>
                 </nav>
             </div>
             {/if}
