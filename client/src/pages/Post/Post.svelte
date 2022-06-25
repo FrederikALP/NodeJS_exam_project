@@ -1,5 +1,5 @@
 <script>
-    import { Link, Router, Route } from "svelte-navigator";
+    import { Link, Router, Route, useParams } from "svelte-navigator";
     import { onMount } from 'svelte';
     import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
     import { toast } from "@zerodevx/svelte-toast";
@@ -16,19 +16,20 @@
     let users;
     let userIsLoggedIN;
     let post;
+    const params = useParams();
 
     const socket = io("ws://localhost:3000");
 
-    socket.on("comment", (data) => {
-    console.log('hsbgfjhdfgdfg')
-    comments = [...comments, data]
-  });
+        socket.on("comment", (data) => {
+        console.log('hsbgfjhdfgdfg')
+        comments = [...comments, data]
+    });
 
     
 
     async function fetchComments() {
         console.log($postid);
-        const response = await fetch($baseURL + '/api/commentsByPost/' + $postid);
+        const response = await fetch($baseURL + '/api/commentsByPost/' + $params.id);
         const commentsArray = await response.json();
         comments = commentsArray;
         comments.map( comment =>{
@@ -46,7 +47,7 @@
 
     async function fetchPost() {
         console.log($postid);
-        const response = await fetch($baseURL + '/api/posts/' + $postid);
+        const response = await fetch($baseURL + '/api/posts/' + $params.id);
         const postsArray = await response.json();
         post = postsArray;
         console.log(post);
