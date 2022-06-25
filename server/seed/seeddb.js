@@ -86,9 +86,9 @@ const seedDB = async () => {
     await SubForum.deleteMany({});
     await SubForum.insertMany(seedSubForum);
     await Posts.deleteMany({});
-    await Posts.insertMany(seedPosts);
+    //await Posts.insertMany(seedPosts);
     await Comments.deleteMany({});
-    await Comments.insertMany(seedComments);
+    //await Comments.insertMany(seedComments);
 };
 
 seedDB().then(() => {

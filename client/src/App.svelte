@@ -43,7 +43,7 @@
 	<Router>
 		<div class="navdiv">
 			<nav>
-				<img class="navlogo" src="/favicon.png" alt="...">
+				<img class="navlogo" src="/favicon.png" alt="Didnt load">
 				<Link to="/"><button class="navbutton">Home</button></Link>
 				<Link to="/forum"><button class="navbutton">Forum</button></Link>
 				{#if (!$user.loggedIn)}
@@ -101,7 +101,7 @@
 	}
 
 	.navdiv {
-		
+
 	}
 
 	.navlogo {
