@@ -2,9 +2,19 @@ import mongoose from "mongoose";
 
 const Posts = new mongoose.Schema(
     { 
-        postheader: String, 
+        postheader: {
+            type: String,
+            required: true,
+            minlength: 1,
+            maxlength: 50
+        }, 
         date: { type: Date, default: () => Date.now() }, 
-        postbody: String, 
+        postbody: {
+            type: String,
+            required: true,
+            minlength: 1,
+            maxlength: 500
+        }, 
         replycount: Number,
         subid: Number,
         userid: mongoose.Schema.Types.ObjectId

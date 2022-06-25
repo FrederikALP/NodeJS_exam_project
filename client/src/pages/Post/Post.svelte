@@ -260,7 +260,8 @@
     .fullpage {
         width: 50%;
         margin: auto;
-        text-align: left
+        text-align: left;
+        word-wrap: break-word;
     }
 
     .postheader {

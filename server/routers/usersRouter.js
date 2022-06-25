@@ -68,7 +68,7 @@ router.post('/api/register', async (req, res) => {
 	} catch (error) {
 		if (error.code === 11000) {
 			// duplicate key
-			return res.json({ status: 'error', error: 'Username already in use' });
+			return res.json({ status: 'error', error: 'Username or Email already in use' });
 		}
 		throw error;
 	}

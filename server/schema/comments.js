@@ -2,8 +2,13 @@ import mongoose from "mongoose";
 
 const Comments = new mongoose.Schema(
     { 
-        commentbody: String, 
-        replynumber: Number, 
+        commentbody: {
+            type: String,
+            required: true,
+            minlength: 1,
+            maxlength: 200
+        },
+        replynumber: Number,
         postid: String,
         userid: String
 	},
