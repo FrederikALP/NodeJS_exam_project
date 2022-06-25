@@ -82,7 +82,7 @@ async function fetchUser() {
     <div class="userDescription">
         {#if profileUser.description}
              <h1>User description</h1>
-             <span class="descriptionText">{profileUser.description}</span>
+             <div class="descriptionText">{profileUser.description}</div>
         {/if}
 
     </div>
@@ -97,6 +97,7 @@ h1 {
     font-size: 20px;
     padding-bottom: 15px;
     margin: auto;
+    padding: 10px;
 }
 
 .userProfile {
@@ -140,7 +141,6 @@ h1 {
     border: solid black 1px;
     border-radius: 0.25em;
     padding-bottom: auto;
-    padding-left: 10px;
 }
 
 .descriptionText {
