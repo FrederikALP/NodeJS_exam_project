@@ -50,7 +50,6 @@ router.patch("/api/users/:id", async (req, res) => {
 	try {
 		await Users.findByIdAndUpdate(req.params.id, req.body);
 		let updatedUser = await Users.findOne({_id});
-		console.log(updatedUser);
 		res.send(updatedUser);
 	} catch (error) {
 		res.status(500).send(error);
@@ -77,7 +76,6 @@ router.post('/auth/login', async (req, res) => {
 
 
 router.post('/auth/register', async (req, res) => {
-    console.log(res.body); 
 	const { username, password: plainTextPassword, email } = req.body;
 
 	const password = await bcrypt.hash(plainTextPassword, 10);

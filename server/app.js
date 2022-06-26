@@ -99,7 +99,7 @@ const server = http.createServer(app);
 import {init} from './socketIO.js';
 const io = init(server)
 io.on("connection", (socket) => {
-  console.log(socket.id)
+  console.log("socket id for each user", socket.id)
 });
 
 //Port

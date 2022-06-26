@@ -52,8 +52,7 @@ router.patch("/api/comment/:id", async (req, res) => {
     let _id = req.params.id;
     try {
         await Comments.findByIdAndUpdate(req.params.id, req.body);
-        let updatedcomment = await Comments.findOne({_id});
-        console.log(updatedcomment);
+        let updatedcomment = await Comments.findOne({_id});;
         const io = getIO();
         io.emit('updatecomment', updatedcomment);
         res.send(updatedcomment);

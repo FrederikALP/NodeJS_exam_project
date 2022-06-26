@@ -60,7 +60,6 @@ router.patch("/api/post/:id", async (req, res) => {
     try {
         await Posts.findByIdAndUpdate(req.params.id, req.body);
         let updatedPost = await Posts.findOne({_id});
-        console.log(updatedPost);
         res.send(updatedPost);
     } catch (error) {
         res.status(500).send(error);

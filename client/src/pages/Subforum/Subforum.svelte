@@ -15,26 +15,22 @@
         const response = await fetch($baseURL + '/api/postsBySubforum/' + $params.id);
         const postsArray = await response.json();
         posts = postsArray;
-        console.log(posts);
     };
 
     async function fetchUsers() {
         const response = await fetch($baseURL + '/api/users');
         const usersArray = await response.json();
         users = usersArray;
-        console.log(users);
     };
 
     async function fetchSubForums() {
         const response = await fetch($baseURL + '/api/subforums');
         const forumsArray = await response.json();
         subforums = forumsArray;
-        console.log(subforums);
     };
 
     function changeId(newid) {
         postid.set(newid)
-        console.log($postid)
 	};
 
     onMount(async () => {

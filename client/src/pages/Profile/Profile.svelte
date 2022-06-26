@@ -15,7 +15,6 @@ async function fetchUser() {
         const response = await fetch($baseURL + '/api/users/' + $params.id);
         const userArray = await response.json();
         profileUser = userArray;
-        console.log(profileUser);
     };
 
     
@@ -24,19 +23,7 @@ async function fetchUser() {
             description: patchedUserDescription,
             avatar: patchedAvatar
         }
-    
-        /*let updatedUser = {};
-        if (!patchedAvatar) {
-        updatedUser = {
-            description: patchedUserDescription
-        }
-        }
-        else {
-            updatedUser = {
-                avatar: patchedAvatar
-            }
-        }*/
-    console.log(updatedUser);
+
     const res = await fetch($baseURL + '/api/users/' + $params.id, {
         method: 'PATCH',
         headers: {
@@ -44,12 +31,10 @@ async function fetchUser() {
         },
         body: JSON.stringify(updatedUser)
     })
-    console.log(res.status);
     
     const result = await res.json()
     if (res.status === 200) {
             toast.push('User edited succesfully')
-            console.log(result);
             profileUser = result;
         } else {
             toast.push(res.error);

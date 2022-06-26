@@ -11,20 +11,17 @@
         const response = await fetch($baseURL + '/api/forums');
         const forumsArray = await response.json();
         forums = forumsArray;
-        console.log(forums);
     };
 
     async function fetchSubForums() {
         const response = await fetch($baseURL + '/api/subforums');
         const forumsArray = await response.json();
         subforums = forumsArray;
-        console.log(subforums);
     };
 
     function changeId(newid) {
         subid.set(newid)
         localStorage.setItem("persistentsubid", newid);
-        console.log($subid)
 	};
 
     onMount(async () => {

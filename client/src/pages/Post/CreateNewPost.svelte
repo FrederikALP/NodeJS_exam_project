@@ -11,16 +11,10 @@ let idforredirect;
 
 function changeId(newid) {
         postid.set(newid)
-        console.log($postid)
 	};
     
-
 async function createNewPost() {
-    console.log($subid);
-    console.log($user);
-
     let replycount = 0;
-
     let newPost = {
             postheader: newheader,
             postbody: newbody,
@@ -28,7 +22,6 @@ async function createNewPost() {
             subid: $subid,
             userid: $user.currentUser._id
     };
-    console.log(newPost);
 
     const response = await fetch($baseURL + '/api/post', {
         method: 'POST',
@@ -37,15 +30,12 @@ async function createNewPost() {
         },
         body: JSON.stringify({post: newPost})
         })
-        console.log(response.status)
     
     const result = await response.json()
         if (response.status === 200) {
             toast.push('Post created succesfully')
             changeId(result._id);
             idforredirect = result._id;
-            console.log(result);
-            console.log(result._id);
             navigate("/post/" + result._id, {replace: true});
         } else {
             toast.push(response.error);

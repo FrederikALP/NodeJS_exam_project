@@ -27,12 +27,10 @@
 	async function handleLogout() {
 		const response = await fetch($baseURL + '/auth/logout');
 		const result = await response.json();
-		console.log(result);
         
         if (result.loggedIn === false) {
             user.set(result.loggedIn = false);
 			localStorage.clear();
-			console.log(localStorage.getItem("user"));
         }
 	}
 

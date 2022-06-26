@@ -15,42 +15,34 @@
 
     const socket = io("ws://localhost:3000");
         socket.on("comment", (data) => {
-        console.log('hsbgfjhdfgdfg')
         comments = [...comments, data]
     }),
-        socket.on("updatecomment", (data) => {
-        console.log('hsbgfjhdfgdfg')
+        socket.on("updatecomment", () => {
         fetchComments();
     }),
-    socket.on("deletecomment", (data) => {
-        console.log('hsbgfjhdfgdfg')
+    socket.on("deletecomment", () => {
         fetchComments();
     });
 
     async function fetchPost() {
-        console.log($postid);
         const response = await fetch($baseURL + '/api/posts/' + $params.id);
         const postsArray = await response.json();
         post = postsArray;
-        console.log(post);
     };
 
     async function fetchComments() {
-        console.log($postid);
         const response = await fetch($baseURL + '/api/commentsByPost/' + $params.id);
         const commentsArray = await response.json();
         comments = commentsArray;
         comments.map( comment =>{
             return comment.editToggle = false;
         });
-        console.log(comments);
     };
 
     async function fetchUsers() {
         const response = await fetch($baseURL + '/api/users');
         const usersArray = await response.json();
-        users = usersArray;
-        console.log(users);
+        users = usersArray;;
     };
 
 
@@ -60,7 +52,6 @@
         let updatedPost = {
             postbody: patchedPostBody
         };
-        console.log(updatedPost);
         const res = await fetch($baseURL + '/api/post/' + id, {
             method: 'PATCH',
             headers: {
@@ -68,13 +59,11 @@
             },
             body: JSON.stringify(updatedPost)
             })
-            console.log(res.status);
             
             const result = await res.json()
             if (res.status === 200) {
                 fetchPost();
                 toast.push('Post edited succesfully')
-                console.log(result);
             } else {
                 toast.push(res.error);
             }
@@ -86,7 +75,6 @@
             postid: $postid,
             userid: $user.currentUser._id
         };
-        console.log(newComment)
 
         const res = await fetch($baseURL + '/api/comment', {
             method: 'POST',
@@ -95,12 +83,10 @@
             },
             body: JSON.stringify({comment: newComment})
             })
-            console.log(res.status)
         
         const result = await res.json()
             if (res.status === 200) {
-                toast.push('Comment created succesfully')
-                console.log(result);
+                toast.push('Comment created succesfully');
             } else {
                 toast.push(res.error);
             }
@@ -111,7 +97,6 @@
         let updatedComment = {
             commentbody: patchedCommentBody
         };
-        console.log(updatedComment);
         const res = await fetch($baseURL + '/api/comment/' + id, {
             method: 'PATCH',
             headers: {
@@ -119,12 +104,10 @@
             },
             body: JSON.stringify(updatedComment)
             })
-            console.log(res.status);
             
             const result = await res.json()
             if (res.status === 200) {
                 toast.push('Comment edited succesfully')
-                console.log(result);
             } else {
                 toast.push(res.error);
             }
@@ -134,12 +117,10 @@
         const res = await fetch($baseURL + '/api/comment/' + id, {
             method: 'DELETE',
             })
-            console.log(res.status);
             
             const result = await res.json()
             if (res.status === 200) {
                 toast.push('Comment deleted succesfully')
-                console.log(result);
                 fetchComments();
             } else {
                 toast.push(res.error);
