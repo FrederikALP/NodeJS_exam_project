@@ -16,47 +16,97 @@ db.once('open', function(callback) {
 
 const seedForum = [
 {
-   mainheader: 'hearing aids',
+   mainheader: 'Hearing Aids',
    _id: 1
 },
 {
-    mainheader: 'reviews',
+    mainheader: 'Events',
     _id: 2
  },
  {
-    mainheader: 'headphones for hearing aids',
+    mainheader: 'Headsets',
     _id: 3
+ },
+ {
+    mainheader: 'Reviews',
+    _id: 4
+ },
+ {
+    mainheader: 'News',
+    _id: 5
  }
 ];
 
 const seedSubForum = [
 {
-    subheader: 'some brand bose',
+    subheader: 'Brands',
     postcount: 0,
     commentcount: 0,
     mainid: 1,
     _id: 1
 },
 {
-    subheader: 'another sub brand',
+    subheader: 'Help and Support',
     postcount: 0,
     commentcount: 0,
     mainid: 1,
     _id: 2
 },
 {
-    subheader: 'hearing aids reviews',
+    subheader: 'Conventions',
     postcount: 0,
     commentcount: 0,
     mainid: 2,
     _id: 3
 },
 {
-    subheader: 'hyperX',
+    subheader: 'Local Meets',
+    postcount: 0,
+    commentcount: 0,
+    mainid: 2,
+    _id: 4
+},
+{
+    subheader: 'Brands',
     postcount: 0,
     commentcount: 0,
     mainid: 3,
-    _id: 4
+    _id: 5
+},
+{
+    subheader: 'General Discussion',
+    postcount: 0,
+    commentcount: 0,
+    mainid: 3,
+    _id: 6
+},
+{
+    subheader: 'Hearing Aids Reviews',
+    postcount: 0,
+    commentcount: 0,
+    mainid: 4,
+    _id: 7
+},
+{
+    subheader: 'Headsets Reviews',
+    postcount: 0,
+    commentcount: 0,
+    mainid: 4,
+    _id: 8
+},
+{
+    subheader: 'Product News',
+    postcount: 0,
+    commentcount: 0,
+    mainid: 5,
+    _id: 9
+},
+{
+    subheader: 'Research News',
+    postcount: 0,
+    commentcount: 0,
+    mainid: 5,
+    _id: 10
 }
 ]
 

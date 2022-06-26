@@ -9,10 +9,8 @@ import Posts from "../schema/posts.js";
 //Get all users
 router.get("/api/users", async (req, res) => {
     const users = await Users.find({});
-	const posts = await Posts.find({});
 	users.map(user => {
 		user.password = "";
-		//user.postcount = 0;
 		return user;
 	})
     try {

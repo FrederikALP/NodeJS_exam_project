@@ -63,18 +63,22 @@ async function fetchUser() {
         </div>
         <div class="userName-Email">
             {#if user}
-                <p>Username: @{profileUser.username}</p>
+                <p>Username: {profileUser.username}</p>
                 <p>Email: {profileUser.email}</p>
             {/if}
         </div>
         <div class="postCount">
-            <p>Posts: {profileUser.postcount}</p>
+            {#if profileUser.postcount}
+                <p>Posts: {profileUser.postcount}</p>
+            {/if}
         </div>    
     </div>
     <div class="userDescription">      
         <h1>User description</h1>
             {#if !profileUser.descriptionToggle}
-                <div class="profile-description-div">{profileUser.description}</div>
+                {#if profileUser.description}
+                    <div class="profile-description-div">{profileUser.description}</div>
+                {/if}
             {:else}
                 <textarea type=text name="profile-description-text" autocomplete="off" placeholder={profileUser.description} id="profile-description" bind:value="{patchedUserDescription}"></textarea>
                 <button on:click="{updateUser}" on:click="{() => profileUser.descriptionToggle = !profileUser.descriptionToggle}">save</button>            
