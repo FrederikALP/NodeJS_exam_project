@@ -92,7 +92,6 @@ async function fetchUser() {
 
 
 <style>
-
 h1 {
     font-size: 20px;
     padding-bottom: 15px;
