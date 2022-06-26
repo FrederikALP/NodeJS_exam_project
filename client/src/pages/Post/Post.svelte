@@ -45,8 +45,6 @@
         users = usersArray;;
     };
 
-
-
     async function updatePost(id) {
         let updatedPost = {
             postbody: patchedPostBody
@@ -133,8 +131,6 @@
         fetchPost();
         socket.connect()
     });
-
-
 </script>
 
 <div class="fullpage">   
