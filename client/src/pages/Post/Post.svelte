@@ -47,11 +47,11 @@
 
 
 
-    async function updatePost(id) {
+    async function updatePost(post) {
         let updatedPost = {
-            postbody: patchedPostBody
+            postbody: post.postbody
         };
-        const res = await fetch($baseURL + '/api/post/' + id, {
+        const res = await fetch($baseURL + '/api/post/' + post._id, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -142,10 +142,10 @@
         <div class="postheader">
             <h3>Threadheader: {post.postheader}</h3>
             <div class="replycount">
-                <h3>Replycount: {post.replycount}</h3>
+                <h3>Comments: {post.replycount}</h3>
             </div>
         </div>
-        <div class="postandcomment">
+        <div class="post-div">
             {#each users as postuser}
             {#if post.userid === postuser._id}
                 <div class="postuser">Threadstarter: @{postuser.username}</div>
@@ -155,18 +155,18 @@
                 {#if !post.editToggle}
                     {post.postbody}
                 {:else}
-                    <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{post.postbody}" id="postbody" bind:value="{patchedPostBody}"></textarea>
-                    <button on:click="{updatePost(post._id)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
+                    <textarea type="text"  name="new-comment-body" autocomplete="off" placeholder="{post.postbody}" id="postbody" bind:value="{post.postbody}"></textarea>
+                    <button on:click="{updatePost(post)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
                 {/if}
             </div>
             {#if ($user.loggedIn)}
             {#if (post.userid === $user.currentUser._id)}
-                <button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button>
+                <button class="edit-post-btn" on:click={() => post.editToggle = !post.editToggle}>Edit Post</button>
             {/if}
             {/if}
         </div>
         {#each comments as comment}
-            <div class="postandcomment">
+            <div class="comment-div">
                 {#if users} 
                 {#each users as user1}
                 {#if comment.userid === user1._id}
@@ -196,7 +196,7 @@
         {/each}
     {/if}
     {#if ($user.loggedIn)}
-        <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="Comment here" id="commenttext" bind:value="{newCommentBody}" required></textarea>
+        <textarea type="text" class="comment-textarea" name="new-comment-body" autocomplete="off" placeholder="Comment here" id="commenttext" bind:value="{newCommentBody}" required></textarea>
         <button on:click="{createNewComment}">Create comment</button>
     {/if}
 </div>
@@ -207,12 +207,21 @@
         color: white;
         margin: 0px;
     }
+    .edit-post-btn {
+        margin: auto;
+    }
 
     .fullpage {
         width: 50%;
         margin: auto;
         text-align: left;
         word-wrap: break-word;
+    }
+
+    .comment-textarea {
+        margin-left: 20%;
+        margin-top: 2px;
+        width: 60%;
     }
 
     .postheader {
@@ -223,7 +232,17 @@
         background-color: grey;
     }
 
-    .postandcomment {
+    .post-div {
+        border: solid black 1px;
+        border-radius: 0.25em;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        background-color: rgb(190, 190, 190);
+        margin-bottom: 20px;
+    }
+
+    .comment-div {
         border: solid black 1px;
         border-radius: 0.25em;
         display: flex;
@@ -231,7 +250,6 @@
         flex-direction: row;
         background-color: rgb(190, 190, 190);
     }
-
     .postuser {        
         width: 20%;
         background-color: rgb(154, 154, 154);
