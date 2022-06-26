@@ -25,7 +25,7 @@
   	});
 
 	async function handleLogout() {
-		const response = await fetch($baseURL + '/api/logout');
+		const response = await fetch($baseURL + '/auth/logout');
 		const result = await response.json();
 		console.log(result);
         

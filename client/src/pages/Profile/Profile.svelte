@@ -55,7 +55,7 @@ async function fetchUser() {
 </script>
 
 {#if profileUser}
-<div class="userProfile">
+<div class="user-profile">
     <div class="userInformation">
         <div class="avatarDiv">
         
@@ -89,7 +89,7 @@ async function fetchUser() {
             {/if}
         {#if profileUser.description}
              <h1>User description</h1>
-             <span class="descriptionText">{profileUser.description}</span>
+             <div class="descriptionText">{profileUser.description}</div>
         {/if}
         {/if}
     </div>
@@ -99,14 +99,14 @@ async function fetchUser() {
 
 
 <style>
-
 h1 {
     font-size: 20px;
     padding-bottom: 15px;
     margin: auto;
+    padding: 10px;
 }
 
-.userProfile {
+.user-profile {
     width: 50%;
     margin: auto;
     text-align: left;
@@ -135,19 +135,11 @@ h1 {
     width: 40%;
 }
 
-.userProfile {
-        width: 50%;
-        margin: auto;
-        text-align: left;
-        word-wrap: break-word;
-    }
-
 .userDescription {
     background-color: lightgrey;
     border: solid black 1px;
     border-radius: 0.25em;
     padding-bottom: auto;
-    padding-left: 10px;
 }
 
 .descriptionText {
