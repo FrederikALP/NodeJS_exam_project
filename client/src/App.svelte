@@ -51,7 +51,7 @@
 					<Link to="/register"><button class="navbutton">Register</button></Link>
 				{/if}
 				{#if ($user.loggedIn)}
-					<Link to="/profile/{$user.currentUser._id}"><button class="navbutton">WIP Profile button {$user.currentUser.username}</button></Link>
+					<Link to="/profile/{$user.currentUser._id}"><button class="navbutton">Profile {$user.currentUser.username}</button></Link>
 					<button class="navbutton" on:click="{handleLogout}">Logout</button>
 				{/if}
 			</nav>
