@@ -144,12 +144,12 @@
         <div class="postandcomment">
             {#each users as postuser}
             {#if post.userid === postuser._id}
-                <div class="postuser">Threadstarter: {postuser.username}</div>
+                <div class="postuser">Threadstarter: @{postuser.username}</div>
             {/if}
             {/each}
             <div class="postbody">
                 {#if !post.editToggle}
-                    Postbody: {post.postbody}
+                    {post.postbody}
                 {:else}
                     <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{post.postbody}" id="postbody" bind:value="{patchedPostBody}"></textarea>
                     <button on:click="{updatePost(post._id)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
@@ -235,6 +235,11 @@
 
     .postbody {
         width: 60%;
+    }
+
+    #postbody {
+        height: -webkit-fill-available;
+        width: -webkit-fill-available;
     }
 
     .deleteeditbutton {

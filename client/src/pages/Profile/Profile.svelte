@@ -119,12 +119,15 @@ h1 {
 .avatarDiv {
     width: 30%;
     height: 30%;
+    margin: 5px;
 }
 
 .avatar {
-    padding: 3px;
     width: 95%;
     height: 95%;
+    border-radius: 5.6em;
+    border: solid black 1px;
+
 }
 
 .userName-Email {

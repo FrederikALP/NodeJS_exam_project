@@ -45,7 +45,7 @@
         {#each subforums as subforum}
         {#if subforum._id == subforumid}
             <div class="forumsubheader">
-                <h3>Subforumname: {subforum.subheader}</h3>
+                <h3>Subforum: {subforum.subheader}</h3>
             </div>
         {/if}
         {/each}
