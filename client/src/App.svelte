@@ -38,7 +38,7 @@
 
 <main>
 	<SvelteToast options = {options}/>
-	<Router>
+	<Router primary={false}>
 		<div class="navdiv">
 			<nav>
 				<button disabled><img class="navlogo" src="/favicon.png" alt="Didnt load"></button>

@@ -3,6 +3,7 @@ import Forum from "../schema/forum.js";
 import SubForum from "../schema/subForum.js";
 import Posts from "../schema/posts.js";
 import Comments from "../schema/comments.js";
+import Users from "../schema/user.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -89,6 +90,8 @@ const seedDB = async () => {
     //await Posts.insertMany(seedPosts);
     await Comments.deleteMany({});
     //await Comments.insertMany(seedComments);
+    await Users.deleteMany({});
+    //await Users.insertMany(seedComments);
 };
 
 seedDB().then(() => {
