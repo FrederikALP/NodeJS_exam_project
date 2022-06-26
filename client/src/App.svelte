@@ -38,10 +38,9 @@
 
 <main>
 	<SvelteToast options = {options}/>
-	<Router>
-		<div class="navdiv">
-			<nav>
-				<button disabled><img class="navlogo" src="/favicon.png" alt="Didnt load"></button>
+	<Router primary={false}>
+			<nav class="navdiv">
+				<button class="navlogobutton" disabled><img class="navlogo" src="/favicon.png" alt="Didnt load"></button>
 				<Link to="/"><button class="navbutton">Home</button></Link>
 				<Link to="/forum"><button class="navbutton">Forum</button></Link>
 				{#if (!$user.loggedIn)}
@@ -53,7 +52,6 @@
 					<button class="navbutton" on:click="{handleLogout}">Logout</button>
 				{/if}
 			</nav>
-		</div>
 
 		<Route path="/" component={Frontpage} />
 		<Route path="/forum" component={Forum} />
@@ -85,6 +83,7 @@
 </footer>
 
 <style>
+
 	main {
 		text-align: center;
 		padding: 1em;
@@ -92,21 +91,22 @@
 		margin: 0 auto;
 	}
 
-
-
 	.navdiv {
-
+		display: flex;
+    	justify-content: center;
 	}
 
 	.navlogo {
-		width: 46px;
-		height: 46px;
-		overflow: hidden;
+		width: 25px;
+	}
+
+	.navlogobutton {
+		margin: 5px;
 	}
 
 	.navbutton {
 		height: 46px;
-		overflow: hidden;
+		margin: 5px;
 	}
 
 	@media (min-width: 640px) {

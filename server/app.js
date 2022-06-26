@@ -34,8 +34,8 @@ const authLimiter = rateLimit({
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
-app.use(baseLimiter);
-app.use("/auth/", authLimiter);
+//app.use(baseLimiter);
+//app.use("/auth/", authLimiter);
 
 
 //Helmet

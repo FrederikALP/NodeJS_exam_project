@@ -1,9 +1,7 @@
 <script>
     import { Link, Router, Route, useParams } from "svelte-navigator";
-
     import { onMount } from 'svelte';
-    import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
-    
+    import { baseURL, subid, postid, user } from "../../stores/generalStore.js"; 
 
     let posts;
     let users;
