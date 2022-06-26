@@ -43,7 +43,7 @@
 	<Router>
 		<div class="navdiv">
 			<nav>
-				<img class="navlogo" src="/favicon.png" alt="Didnt load">
+				<button disabled><img class="navlogo" src="/favicon.png" alt="Didnt load"></button>
 				<Link to="/"><button class="navbutton">Home</button></Link>
 				<Link to="/forum"><button class="navbutton">Forum</button></Link>
 				{#if (!$user.loggedIn)}

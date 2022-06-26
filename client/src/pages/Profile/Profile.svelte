@@ -21,10 +21,22 @@ async function fetchUser() {
 
     
     async function updateUser() {
-    let updatedUser = {
-        description: patchedUserDescription,
-        avatar: patchedAvatar
-    };
+        let updatedUser = {
+            description: patchedUserDescription,
+            avatar: patchedAvatar
+        }
+    
+        /*let updatedUser = {};
+        if (!patchedAvatar) {
+        updatedUser = {
+            description: patchedUserDescription
+        }
+        }
+        else {
+            updatedUser = {
+                avatar: patchedAvatar
+            }
+        }*/
     console.log(updatedUser);
     const res = await fetch($baseURL + '/api/users/' + $params.id, {
         method: 'PATCH',
@@ -32,27 +44,25 @@ async function fetchUser() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(updatedUser)
-        })
-        console.log(res.status);
-        
-        const result = await res.json()
-        if (res.status === 200) {
-            //fetchComments();
+    })
+    console.log(res.status);
+    
+    const result = await res.json()
+    if (res.status === 200) {
+        //fetchComments();
             toast.push('User edited succesfully')
             console.log(result);
-
-            //const from = ($location.state && $location.state.from) || "/post/" + postid;
-            //navigate(from, { replace: true });
+            profileUser = result;
         } else {
             toast.push(res.error);
         }
-    }
+    };
 
     onMount(async() => {
         fetchUser();
     });
 
-
+//<input id="avatarUrl" placeholder="Image url" bind:value={patchedAvatar}>
 </script>
 
 {#if profileUser}
@@ -61,13 +71,14 @@ async function fetchUser() {
         <div class="avatarDiv">
         
          
-           {#if profileUser.avatar}
+            {#if !profileUser.toggleAvatar}
            <img class="avatar" src="{profileUser.avatar}" alt=""/>
            {:else}
              <p>Upload profile picture</p>
-             <input id="avatarUrl" placeholder="Image url" bind:value={patchedAvatar}>
-             <button on:click="{updateUser}"></button>
+             <input id="avatarUrl" placeholder={profileUser.avatar} bind:value={patchedAvatar}>
+             <button on:click="{updateUser}" on:click="{() => profileUser.toggleAvatar = !profileUser.toggleAvatar}">save</button>   
            {/if}
+        <button on:click={() => profileUser.toggleAvatar = !profileUser.toggleAvatar}>Edit avatar</button>
         
         </div>
         <div class="userName-Email">
@@ -82,18 +93,16 @@ async function fetchUser() {
 
         
     </div>
-    <div class="userDescription">
-        {#if profileUser.description}      
+    <div class="userDescription">      
         <h1>User description</h1>
-            {#if !profileUser.editToggle}
-            <div class="descriptionText">{profileUser.description}</div>
+            {#if !profileUser.descriptionToggle}
+            Userdescription: {profileUser.description}
             {:else}
-            <input id="avatarUrl" placeholder="Image url" bind:value={patchedAvatar}>
+            
             <textarea type=text name="profile-description-text" autocomplete="off" placeholder={profileUser.description} id="profile-description" bind:value="{patchedUserDescription}"></textarea>
-            <button on:click="{updateUser()}" on:click="{() => profileUser.editToggle = !profileUser.editToggle}">save</button>            
-            {/if}
-        {/if}       
-        <button on:click={() => profileUser.editToggle = !profileUser.editToggle}>Edit profile</button>
+            <button on:click="{updateUser}" on:click="{() => profileUser.descriptionToggle = !profileUser.descriptionToggle}">save</button>            
+            {/if}     
+        <button on:click={() => profileUser.descriptionToggle = !profileUser.descriptionToggle}>Edit description</button>
     </div>
 </div>
 {/if}
