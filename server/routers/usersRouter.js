@@ -3,13 +3,16 @@ import { ObjectId } from "mongodb";
 const router = Router();
 import Users from "../schema/user.js";
 import bcrypt from "bcrypt";
+import Posts from "../schema/posts.js";
 
 
 //Get all users
 router.get("/api/users", async (req, res) => {
     const users = await Users.find({});
+	const posts = await Posts.find({});
 	users.map(user => {
 		user.password = "";
+		user.postcount = 0;
 		return user;
 	})
     try {
@@ -22,8 +25,15 @@ router.get("/api/users", async (req, res) => {
 //Get user by id
 router.get("/api/users/:id", async (req, res) => {
 	const _id = ObjectId(req.params.id);
+	let userid = _id;
+	let postcounter = 0;
     const users = await Users.findOne({ _id });
+	const posts = await Posts.find({ userid });
 	users.password = undefined;
+	posts.forEach(element => {
+		++postcounter
+	});
+	users.postcount = postcounter;
     try {
         res.send(users);
     } catch (error) {
