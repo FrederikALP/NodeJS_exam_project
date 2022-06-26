@@ -78,13 +78,20 @@ async function fetchUser() {
         <div class="postCount">
             <p>Posts: {profileUser.postcount}</p>
         </div>
-    </div>
+
     <div class="userDescription">
+        {#if profileUser.description}      
+        <button on:click={() => profileUser.editToggle = !profileUser.editToggle}>Edit profile</button>
+            {#if !profileUser.editToggle}
+            <span class="descriptionText">{profileUser.description}</span>
+            {:else}
+            <textarea type=text name="profile-description-text" autocomplete="off" placeholder={profileUser.description} id="profile-description" bind:value="{patchedUserDescription}"></textarea>
+            {/if}
         {#if profileUser.description}
              <h1>User description</h1>
              <span class="descriptionText">{profileUser.description}</span>
         {/if}
-
+        {/if}
     </div>
 
 </div>
