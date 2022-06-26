@@ -9,7 +9,8 @@ const params = useParams();
 
 let profileUser;
 let avatar;
-let avatarUpdate;
+let patchedAvatar;
+let patchedUserDescription;
 
 async function fetchUser() {
         const response = await fetch($baseURL + '/api/users/' + $params.id);
@@ -21,8 +22,8 @@ async function fetchUser() {
     
     async function updateUser() {
     let updatedUser = {
-        //description: updatedDescription,
-        avatar: avatarUpdate
+        description: patchedUserDescription,
+        avatar: patchedAvatar
     };
     console.log(updatedUser);
     const res = await fetch($baseURL + '/api/users/' + $params.id, {
@@ -64,7 +65,7 @@ async function fetchUser() {
            <img class="avatar" src="{profileUser.avatar}" alt=""/>
            {:else}
              <p>Upload profile picture</p>
-             <input id="avatarUrl" placeholder="Image url" bind:value={avatarUpdate}>
+             <input id="avatarUrl" placeholder="Image url" bind:value={patchedAvatar}>
              <button on:click="{updateUser}"></button>
            {/if}
         
@@ -79,24 +80,23 @@ async function fetchUser() {
             <p>Posts: {profileUser.postcount}</p>
         </div>
 
+        
+    </div>
     <div class="userDescription">
         {#if profileUser.description}      
-        <button on:click={() => profileUser.editToggle = !profileUser.editToggle}>Edit profile</button>
+        <h1>User description</h1>
             {#if !profileUser.editToggle}
-            <span class="descriptionText">{profileUser.description}</span>
+            <div class="descriptionText">{profileUser.description}</div>
             {:else}
+            <input id="avatarUrl" placeholder="Image url" bind:value={patchedAvatar}>
             <textarea type=text name="profile-description-text" autocomplete="off" placeholder={profileUser.description} id="profile-description" bind:value="{patchedUserDescription}"></textarea>
+            <button on:click="{updateUser()}" on:click="{() => profileUser.editToggle = !profileUser.editToggle}">save</button>            
             {/if}
-        {#if profileUser.description}
-             <h1>User description</h1>
-             <div class="descriptionText">{profileUser.description}</div>
-        {/if}
-        {/if}
+        {/if}       
+        <button on:click={() => profileUser.editToggle = !profileUser.editToggle}>Edit profile</button>
     </div>
-
 </div>
 {/if}
-
 
 <style>
 h1 {
