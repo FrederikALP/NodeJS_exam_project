@@ -30,7 +30,7 @@ router.get("/api/users/:id", async (req, res) => {
     const users = await Users.findOne({ _id });
 	const posts = await Posts.find({ userid });
 	users.password = undefined;
-	posts.forEach(element => {
+	posts.forEach(post => {
 		++postcounter
 	});
 	users.postcount = postcounter;
