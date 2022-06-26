@@ -141,9 +141,9 @@
     {#if comments && post && users}
         <div class="postheader">
             <h3>Threadheader: {post.postheader}</h3>
-        </div>
-        <div class="replycount">
-            <h3>Replycount: {post.replycount}</h3>
+            <div class="replycount">
+                <h3>Replycount: {post.replycount}</h3>
+            </div>
         </div>
         <div class="postandcomment">
             {#each users as postuser}
