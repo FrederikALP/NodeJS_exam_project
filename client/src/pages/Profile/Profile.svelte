@@ -74,7 +74,7 @@ async function fetchUser() {
                 <input id="avatarUrl" placeholder={profileUser.avatar} bind:value={patchedAvatar}>
                 <button on:click="{updateUser}" on:click="{() => profileUser.toggleAvatar = !profileUser.toggleAvatar}">save</button>   
             {/if}
-                <button on:click={() => profileUser.toggleAvatar = !profileUser.toggleAvatar}>Edit avatar</button>
+                <button class="edit-btn" on:click={() => profileUser.toggleAvatar = !profileUser.toggleAvatar}>Edit avatar</button>
         </div>
         <div class="userName-Email">
             {#if user}
@@ -94,7 +94,7 @@ async function fetchUser() {
                 <textarea type=text name="profile-description-text" autocomplete="off" placeholder={profileUser.description} id="profile-description" bind:value="{patchedUserDescription}"></textarea>
                 <button on:click="{updateUser}" on:click="{() => profileUser.descriptionToggle = !profileUser.descriptionToggle}">save</button>            
             {/if}     
-        <button on:click={() => profileUser.descriptionToggle = !profileUser.descriptionToggle}>Edit description</button>
+        <button class="edit-btn" on:click={() => profileUser.descriptionToggle = !profileUser.descriptionToggle}>Edit description</button>
     </div>
 </div>
 {/if}
@@ -105,6 +105,11 @@ h1 {
     padding-bottom: 15px;
     margin: auto;
     padding: 10px;
+}
+
+.edit-btn {
+    margin-left: 5px;
+    border-radius: 0.35em;
 }
 
 .user-profile {
@@ -124,6 +129,7 @@ h1 {
 }
 .avatarDiv {
     width: 30%;
+    height: 30%;
 }
 
 .avatar {
