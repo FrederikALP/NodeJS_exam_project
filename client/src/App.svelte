@@ -77,13 +77,13 @@
 	</Router>
 </main>
 <footer>
-	{new Date().getFullYear()} Copyright bla bla
-	About
-	Contact
+	{new Date().getFullYear()} Copyright |
+	About |
+	Contact |
+	Made by Kristian & Frederik
 </footer>
 
 <style>
-
 	main {
 		text-align: center;
 		padding: 1em;

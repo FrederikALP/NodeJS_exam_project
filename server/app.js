@@ -19,9 +19,9 @@ import mongoose from "mongoose";
 import rateLimit from "express-rate-limit";
     const baseLimiter = rateLimit({
       //the line below limits the window auth times, after 15 minutes the limit will be reset
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    windowMs: 5 * 60 * 1000, // 5 minutes
       //The client is allowed to access 5 times
-    max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    max: 1000, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
@@ -34,9 +34,8 @@ const authLimiter = rateLimit({
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
-//app.use(baseLimiter);
-//app.use("/auth/", authLimiter);
-
+app.use(baseLimiter);
+app.use("/auth/", authLimiter);
 
 //Helmet
 //"img-src" : ["'self'", "data: https:"] is generally to be avoided but for the sake of having an image from outside sources it is used.
@@ -92,6 +91,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve("../client/public/index.html"));
 });
 
+//Http
 import http from "http";
 const server = http.createServer(app);
 

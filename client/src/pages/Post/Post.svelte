@@ -133,8 +133,6 @@
         fetchPost();
         socket.connect()
     });
-
-
 </script>
 
 <div class="fullpage">   
