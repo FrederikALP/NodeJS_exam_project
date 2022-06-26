@@ -1,13 +1,9 @@
 <script>
-    import { Link, Router, Route, useParams } from "svelte-navigator";
+    import { useParams } from "svelte-navigator";
     import { onMount } from 'svelte';
     import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
     import { toast } from "@zerodevx/svelte-toast";
-    import { useNavigate, useLocation } from "svelte-navigator";
     import { io } from "socket.io-client";
-
-    const navigate = useNavigate();
-    const location = useLocation();
 
     let comments = [];
     let newCommentBody;
@@ -31,6 +27,13 @@
         fetchComments();
     });
 
+    async function fetchPost() {
+        console.log($postid);
+        const response = await fetch($baseURL + '/api/posts/' + $params.id);
+        const postsArray = await response.json();
+        post = postsArray;
+        console.log(post);
+    };
 
     async function fetchComments() {
         console.log($postid);
@@ -50,29 +53,32 @@
         console.log(users);
     };
 
-    async function fetchPost() {
-        console.log($postid);
-        const response = await fetch($baseURL + '/api/posts/' + $params.id);
-        const postsArray = await response.json();
-        post = postsArray;
-        console.log(post);
-    };
 
-    async function deleteComment(id) {
-        const res = await fetch($baseURL + '/api/comment/' + id, {
-            method: 'DELETE',
+
+    async function updatePost(id) {
+    
+        let updatedPost = {
+            postbody: patchedPostBody
+        };
+        console.log(updatedPost);
+        const res = await fetch($baseURL + '/api/post/' + id, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedPost)
             })
             console.log(res.status);
             
             const result = await res.json()
             if (res.status === 200) {
-                toast.push('Comment deleted succesfully')
+                fetchPost();
+                toast.push('Post edited succesfully')
                 console.log(result);
-                fetchComments();
             } else {
                 toast.push(res.error);
             }
-    };
+        }
 
     async function createNewComment() {
         let newComment = {
@@ -93,8 +99,6 @@
         
         const result = await res.json()
             if (res.status === 200) {
-                //comments.push(result);
-                //comments = comments;
                 toast.push('Comment created succesfully')
                 console.log(result);
             } else {
@@ -119,44 +123,29 @@
             
             const result = await res.json()
             if (res.status === 200) {
-                //fetchComments();
                 toast.push('Comment edited succesfully')
                 console.log(result);
-
-                //const from = ($location.state && $location.state.from) || "/post/" + postid;
-                //navigate(from, { replace: true });
             } else {
                 toast.push(res.error);
             }
     }
 
-    async function updatePost(id) {
- 
-    let updatedPost = {
-        postbody: patchedPostBody
+    async function deleteComment(id) {
+        const res = await fetch($baseURL + '/api/comment/' + id, {
+            method: 'DELETE',
+            })
+            console.log(res.status);
+            
+            const result = await res.json()
+            if (res.status === 200) {
+                toast.push('Comment deleted succesfully')
+                console.log(result);
+                fetchComments();
+            } else {
+                toast.push(res.error);
+            }
     };
-    console.log(updatedPost);
-    const res = await fetch($baseURL + '/api/post/' + id, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedPost)
-        })
-        console.log(res.status);
-        
-        const result = await res.json()
-        if (res.status === 200) {
-            fetchPost();
-            toast.push('Post edited succesfully')
-            console.log(result);
-
-            //const from = ($location.state && $location.state.from) || "/post/" + postid;
-            //navigate(from, { replace: true });
-        } else {
-            toast.push(res.error);
-        }
-    }
+    
 
     onMount(async () => {
         fetchComments();
@@ -165,10 +154,7 @@
         socket.connect()
     });
 
-    function changeId(newid) {
-        id.set(newid)
-        console.log(id)
-	};
+
 </script>
 
 <div class="fullpage">   

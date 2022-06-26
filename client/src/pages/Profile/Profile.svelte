@@ -1,9 +1,8 @@
 <script>
 import { toast } from "@zerodevx/svelte-toast";
-import { Link, Router, Route, useParams } from "svelte-navigator";
-import { onMount, prevent_default } from "svelte/internal";
+import { useParams } from "svelte-navigator";
+import { onMount } from "svelte/internal";
 import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
-import { useNavigate, useLocation, navigate } from "svelte-navigator";
 
 const params = useParams();
 
@@ -49,7 +48,6 @@ async function fetchUser() {
     
     const result = await res.json()
     if (res.status === 200) {
-        //fetchComments();
             toast.push('User edited succesfully')
             console.log(result);
             profileUser = result;

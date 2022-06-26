@@ -1,10 +1,8 @@
 <script>
     import { Link, Router, Route, useParams } from "svelte-navigator";
-    import { useNavigate, useLocation } from "svelte-navigator";
 
     import { onMount } from 'svelte';
     import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
-    import Post from "../Post/Post.svelte";
     
 
     let posts;
