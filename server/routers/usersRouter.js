@@ -12,7 +12,7 @@ router.get("/api/users", async (req, res) => {
 	const posts = await Posts.find({});
 	users.map(user => {
 		user.password = "";
-		user.postcount = 0;
+		//user.postcount = 0;
 		return user;
 	})
     try {
@@ -30,10 +30,12 @@ router.get("/api/users/:id", async (req, res) => {
     const users = await Users.findOne({ _id });
 	const posts = await Posts.find({ userid });
 	users.password = undefined;
+	if (posts) {
 	posts.forEach(post => {
 		++postcounter
 	});
 	users.postcount = postcounter;
+	}
     try {
         res.send(users);
     } catch (error) {

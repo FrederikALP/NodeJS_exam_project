@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ObjectId } from "mongodb";
 const router = Router();
 import Posts from "../schema/posts.js";
+import Comments from "../schema/comments.js";
  
 //Get all posts
 router.get("/api/posts", async (req, res) => {
@@ -13,11 +14,19 @@ router.get("/api/posts", async (req, res) => {
     }
 });
 
-//Get post by id with req.body for some reason
+//Get post by id
 router.get("/api/posts/:id", async (req, res) => {
     const _id = ObjectId(req.params.id);
-    const posts = await Posts.findOne({ _id }) ;
-
+    const postid = ObjectId(req.params.id);
+    const posts = await Posts.findOne({ _id });
+    const comments = await Comments.find({ postid });
+    let replycounter = 0;
+    if (comments) {
+            comments.forEach(comment => {
+		++replycounter
+	});
+    posts.replycount = replycounter;
+    }
     try {
         res.send(posts);
     } catch (error) {
