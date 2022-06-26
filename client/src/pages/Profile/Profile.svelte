@@ -52,40 +52,34 @@ async function fetchUser() {
 <div class="user-profile">
     <div class="userInformation">
         <div class="avatarDiv">
-        
-         
             {#if !profileUser.toggleAvatar}
-           <img class="avatar" src="{profileUser.avatar}" alt=""/>
-           {:else}
-             <p>Upload profile picture</p>
-             <input id="avatarUrl" placeholder={profileUser.avatar} bind:value={patchedAvatar}>
-             <button on:click="{updateUser}" on:click="{() => profileUser.toggleAvatar = !profileUser.toggleAvatar}">save</button>   
-           {/if}
-        <button on:click={() => profileUser.toggleAvatar = !profileUser.toggleAvatar}>Edit avatar</button>
-        
+                <img class="avatar" src="{profileUser.avatar}" alt=""/>
+            {:else}
+                <p>Upload profile picture</p>
+                <input id="avatarUrl" placeholder={profileUser.avatar} bind:value={patchedAvatar}>
+                <button on:click="{updateUser}" on:click="{() => profileUser.toggleAvatar = !profileUser.toggleAvatar}">save</button>   
+            {/if}
+                <button class="edit-btn" on:click={() => profileUser.toggleAvatar = !profileUser.toggleAvatar}>Edit avatar</button>
         </div>
         <div class="userName-Email">
             {#if user}
-                 <p>Username: @{profileUser.username}</p>
-                 <p>Email: {profileUser.email}</p>
+                <p>Username: @{profileUser.username}</p>
+                <p>Email: {profileUser.email}</p>
             {/if}
         </div>
         <div class="postCount">
             <p>Posts: {profileUser.postcount}</p>
-        </div>
-
-        
+        </div>    
     </div>
     <div class="userDescription">      
         <h1>User description</h1>
             {#if !profileUser.descriptionToggle}
-            Userdescription: {profileUser.description}
+                <div class="profile-description-div">{profileUser.description}</div>
             {:else}
-            
-            <textarea type=text name="profile-description-text" autocomplete="off" placeholder={profileUser.description} id="profile-description" bind:value="{patchedUserDescription}"></textarea>
-            <button on:click="{updateUser}" on:click="{() => profileUser.descriptionToggle = !profileUser.descriptionToggle}">save</button>            
+                <textarea type=text name="profile-description-text" autocomplete="off" placeholder={profileUser.description} id="profile-description" bind:value="{patchedUserDescription}"></textarea>
+                <button on:click="{updateUser}" on:click="{() => profileUser.descriptionToggle = !profileUser.descriptionToggle}">save</button>            
             {/if}     
-        <button on:click={() => profileUser.descriptionToggle = !profileUser.descriptionToggle}>Edit description</button>
+        <button class="edit-btn" on:click={() => profileUser.descriptionToggle = !profileUser.descriptionToggle}>Edit description</button>
     </div>
 </div>
 {/if}
@@ -96,6 +90,11 @@ h1 {
     padding-bottom: 15px;
     margin: auto;
     padding: 10px;
+}
+
+.edit-btn {
+    margin-left: 5px;
+    border-radius: 0.35em;
 }
 
 .user-profile {
@@ -115,6 +114,7 @@ h1 {
 }
 .avatarDiv {
     width: 30%;
+    height: 30%;
 }
 
 .avatar {
@@ -134,12 +134,13 @@ h1 {
     padding-bottom: auto;
 }
 
-.descriptionText {
+.profile-description-div {
     padding-bottom: 15px;
     padding-left: 10px;
     border: solid black 1px;
     border-radius: 0.25em;
     text-align: left;
     word-wrap: break-word;
+    margin: 5px;
 }
 </style>

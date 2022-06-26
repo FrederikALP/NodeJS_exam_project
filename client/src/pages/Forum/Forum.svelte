@@ -2,7 +2,6 @@
     import { Link, Router, Route } from "svelte-navigator";
     import { onMount } from 'svelte';
     import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
-    import Subforum from "../Subforum/Subforum.svelte";
 
     let forums;
     let subforums;
@@ -36,29 +35,29 @@
 </div>
     <div class="forumcontent">
         {#if forums} 
-          {#each forums as forum}
-          <div class="headerandsub">
-          <div class="forumheader">
-              <h3>  {forum.mainheader} </h3>
+        {#each forums as forum}
+            <div class="headerandsub">
+                <div class="forumheader">
+                    <h3>  {forum.mainheader} </h3>
+                </div>
+                {#if subforums} 
+                {#each subforums as subforum}
+                {#if subforum.mainid === forum._id}
+                    <div class="subforum">
+                        <nav>
+                            <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">
+                                <h4>{subforum.subheader}</h4>
+                            </Link>
+                        </nav>
+                    </div>
+                {/if}
+                {/each}
+                {/if}
             </div>
-            {#if subforums} 
-            {#each subforums as subforum}
-            {#if subforum.mainid === forum._id}
-            <div class="subforum">
-                <nav>
-                     <Link on:click="{changeId(subforum._id)}" to="/subforum/{subforum._id}">
-                        <h4>{subforum.subheader}</h4>
-                    </Link>
-                </nav>
-            </div>
-            {/if}
-            {/each}
-            {/if}
-            </div>
-            {/each}
-            {/if}
-        </div>
+        {/each}
+        {/if}
     </div>
+</div>
         
         
 <style>
@@ -66,9 +65,6 @@
         color: white;
     }
 
-    h2 {
-
-    }
 
     h3 {
         color: white;
@@ -118,18 +114,4 @@
         border-collapse: collapse;
     }
 
-    table, tr, th {
-        border: solid black 1px;
-        border-collapse: collapse;
-        text-align: left;
-    }
-
-    td {
-        text-align: left;
-    }
-
-    table {
-        width: 50%;
-        margin: auto;
-    }
 </style>
