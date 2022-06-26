@@ -44,7 +44,6 @@
     <h1>Login</h1>
     <form on:submit|preventDefault={login}>
         <label for="username">
-            <!-- font awesome icon -->
             <i class="fas fa-user"></i>
         </label>
         <input type="text" name="username" autocomplete="off" placeholder="Username" id="username" required>

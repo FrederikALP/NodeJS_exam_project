@@ -10,7 +10,6 @@
     let newPassword;
     let newEmail;
 
-    const form = document.getElementById('register');
     
     async function registerUser(event) {
         event.preventDefault();

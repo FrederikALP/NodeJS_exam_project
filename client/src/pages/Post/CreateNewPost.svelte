@@ -1,11 +1,9 @@
 <script>
 import { toast } from "@zerodevx/svelte-toast";
-import { Link, Router, Route } from "svelte-navigator";
-import { prevent_default } from "svelte/internal";
 import { baseURL, subid, postid, user } from "../../stores/generalStore.js";
-import { useNavigate, useLocation, navigate } from "svelte-navigator";
+import { navigate } from "svelte-navigator";
 
-const location = useLocation();
+
 
 let newheader;
 let newbody;
@@ -18,8 +16,6 @@ function changeId(newid) {
     
 
 async function createNewPost() {
-    //event.preventDefault();
-  
     console.log($subid);
     console.log($user);
 
@@ -51,8 +47,6 @@ async function createNewPost() {
             console.log(result);
             console.log(result._id);
             navigate("/post/" + result._id, {replace: true});
-            //const from = ($location.state && $location.state.from) || "/post/" + result._id;
-            //navigate(from, { replace: true });
         } else {
             toast.push(response.error);
         }
