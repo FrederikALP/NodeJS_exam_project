@@ -50,39 +50,32 @@
         {#if posts && users && subforums}
         {#each subforums as subforum}
         {#if subforum._id == subforumid}
-        <div class="forumsubheader">
-            <h3>Subforumname: {subforum.subheader}</h3>
-        </div>
-            {/if}
-        {/each}
-        {#each posts as post}
-        <div class="forumpost">
-            {#each users as user}
-            {#if post.userid === user._id}
-            <div class="postuser">
-               <h4>Posted by {user.username}</h4>
-           </div>
-           {/if}
-           {/each}
-            <div class="postname">
-            <Link on:click="{changeId(post._id)}" to="/post/{post._id}">
-                <h4>Postname: {post.postheader}</h4>
-            </Link>
+            <div class="forumsubheader">
+                <h3>Subforumname: {subforum.subheader}</h3>
             </div>
-        </div>
+        {/if}
+        {/each}
+            {#each posts as post}
+                <div class="forumpost">
+                    {#each users as user}
+                    {#if post.userid === user._id}
+                        <div class="postuser">
+                            <h4>Posted by {user.username}</h4>
+                        </div>
+                    {/if}
+                    {/each}
+                        <div class="postname">
+                            <Link on:click="{changeId(post._id)}" to="/post/{post._id}">
+                                <h4>Postname: {post.postheader}</h4>
+                            </Link>
+                        </div>
+                </div>
         {/each}
         {/if}
     </div>
 </div>
 
 <style>
-    h1 {
-        color: white;
-    }
-
-    h2 {
-
-    }
 
     h3 {
         color: white;
@@ -121,7 +114,4 @@
         background-color: rgb(163, 163, 163);
     }
 
-    .postuser {        
-
-    }
 </style>

@@ -8,7 +8,6 @@ const Comments = new mongoose.Schema(
             minlength: 1,
             maxlength: 200
         },
-        replynumber: Number,
         postid: String,
         userid: String
 	},

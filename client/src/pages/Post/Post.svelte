@@ -56,7 +56,6 @@
 
 
     async function updatePost(id) {
-    
         let updatedPost = {
             postbody: patchedPostBody
         };
@@ -159,62 +158,62 @@
 
 <div class="fullpage">   
     {#if comments && post && users}
-    <div class="postheader">
-        <h3>Threadheader: {post.postheader}</h3>
-    </div>
-    <div class="postandcomment">
-        {#each users as postuser}
-        {#if post.userid === postuser._id}
-            <div class="postuser">Threadstarter: {postuser.username}</div>
-        {/if}
-        {/each}
-        <div class="postbody">
-            {#if !post.editToggle}
-                Postbody: {post.postbody}
-            {:else}
-                <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{post.postbody}" id="postbody" bind:value="{patchedPostBody}"></textarea>
-                <button on:click="{updatePost(post._id)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
-            {/if}
+        <div class="postheader">
+            <h3>Threadheader: {post.postheader}</h3>
         </div>
-        {#if ($user.loggedIn)}
+        <div class="postandcomment">
+            {#each users as postuser}
+            {#if post.userid === postuser._id}
+                <div class="postuser">Threadstarter: {postuser.username}</div>
+            {/if}
+            {/each}
+            <div class="postbody">
+                {#if !post.editToggle}
+                    Postbody: {post.postbody}
+                {:else}
+                    <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{post.postbody}" id="postbody" bind:value="{patchedPostBody}"></textarea>
+                    <button on:click="{updatePost(post._id)}" on:click="{() => post.editToggle = !post.editToggle}">save</button>
+                {/if}
+            </div>
+            {#if ($user.loggedIn)}
             {#if (post.userid === $user.currentUser._id)}
-            <button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button>
+                <button on:click={() => post.editToggle = !post.editToggle}>Edit postbody</button>
             {/if}
-        {/if}
-    </div>
-    {#each comments as comment}
-    <div class="postandcomment">
-        {#if users} 
-        {#each users as user1}
-        {#if comment.userid === user1._id}
-        <div class="postuser">
-        @User: {user1.username}
-        </div>
-        <div class="postbody">
-            {#if !comment.editToggle}
-            Comment: {comment.commentbody}
-            {:else}
-            <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{comment.commentbody}" id="commenttext" bind:value="{patchedCommentBody}"></textarea>
-            <button on:click="{updateComment(comment._id)}" on:click="{() => comment.editToggle = !comment.editToggle}">save</button>
             {/if}
         </div>
-        {#if ($user.loggedIn)}
-            {#if (comment.userid === $user.currentUser._id)}
-            <div class="deleteeditbutton">
-            <button on:click="{deleteComment(comment._id)}">Delete comment</button>
-            <button on:click={() => comment.editToggle = !comment.editToggle}>Edit comment</button>
+        {#each comments as comment}
+            <div class="postandcomment">
+                {#if users} 
+                {#each users as user1}
+                {#if comment.userid === user1._id}
+                <div class="postuser">
+                    @User: {user1.username}
                 </div>
-            {/if}
-           {/if}
-        {/if}
+                <div class="postbody">
+                    {#if !comment.editToggle}
+                        Comment: {comment.commentbody}
+                    {:else}
+                        <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="{comment.commentbody}" id="commenttext" bind:value="{patchedCommentBody}"></textarea>
+                        <button on:click="{updateComment(comment._id)}" on:click="{() => comment.editToggle = !comment.editToggle}">save</button>
+                    {/if}
+                </div>
+                    {#if ($user.loggedIn)}
+                    {#if (comment.userid === $user.currentUser._id)}
+                        <div class="deleteeditbutton">
+                            <button on:click="{deleteComment(comment._id)}">Delete comment</button>
+                            <button on:click={() => comment.editToggle = !comment.editToggle}>Edit comment</button>
+                        </div>
+                    {/if}
+                    {/if}
+                {/if}
+                {/each}
+                {/if}
+            </div>
         {/each}
-        {/if}
-    </div>
-    {/each}
     {/if}
     {#if ($user.loggedIn)}
-    <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="Comment here" id="commenttext" bind:value="{newCommentBody}" required></textarea>
-    <button on:click="{createNewComment}">Create comment</button>
+        <textarea type="text" name="new-comment-body" autocomplete="off" placeholder="Comment here" id="commenttext" bind:value="{newCommentBody}" required></textarea>
+        <button on:click="{createNewComment}">Create comment</button>
     {/if}
 </div>
 
@@ -224,8 +223,6 @@
         color: white;
         margin: 0px;
     }
-
-
 
     .fullpage {
         width: 50%;
